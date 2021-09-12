@@ -1,0 +1,13 @@
+.sidenav{
+display: block;
+height: 100%;
+position: absolute;
+}
+.sidenav > div{
+    height: 100%;
+    width:50px !important;
+}
+.sidenav li{
+    display:flex;
+    justify-content: center;
+}

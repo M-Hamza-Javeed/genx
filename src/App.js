@@ -1,24 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import Sidenav from './comm/design/comm/Sidenav'
+import Menu from './comm/design/comm/Home'
+import {Topnav} from './comm/design/comm/Topnav'
+import {ContextProvider} from './comm/contexApi/Dataprovide'
+import React from 'react';
+
 
 function App() {
   return (
+    <ContextProvider>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+      <Sidenav></Sidenav>
+      <Topnav></Topnav>
+      </div>
+      <Menu></Menu>
     </div>
+    </ContextProvider>
   );
 }
 
