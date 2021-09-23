@@ -121,13 +121,13 @@ export default class Menu extends React.Component {
 
         handleSelect(activeKey) {
         if (activeKey == "WebScraper"){this.oniframeloaded()} 
-        if(this.context[0].SideNavBtn=="home"){ this.setState({ active: activeKey }); }
+        if(this.context[0].SideNavBtn=="Home"){ this.setState({ active: activeKey }); }
         if (this.context[0].SideNavBtn=="Apps") { this.setState({ active: this.context[0].SideNavBtn}); }
         }
 
         componentWillReceiveProps(){
             if (this.context[0].SideNavBtn=="Apps") { this.setState({ active: this.context[0].SideNavBtn}); }
-            if (this.context[0].SideNavBtn=="home") { this.setState({ active: "Home"}); }
+            if (this.context[0].SideNavBtn=="Home") { this.setState({ active: "Home"}); }
         }
 
         
@@ -251,6 +251,7 @@ export default class Menu extends React.Component {
             var requestOptions = { method: 'POST', body: formdata };
             fetch("http://localhost:8080/scrape/page", requestOptions).then(response => response.json())
             .then((result)=>{
+                this.context[1]({Htmlpage:result.indexpage})
                 this.state.grapejsref.editor.setComponents(result.indexpage)
             })
             .catch(error => console.log('error', error));
@@ -352,8 +353,7 @@ export default class Menu extends React.Component {
                             return <div onClick={(e)=>{this.OpenWebPage(e.target.textContent)}} style={{display:'flex',margin:'10px 0px',color:"#fff",padding:"5px",marginRight:'7px',justifyContent:'center','backgroundColor':'#000'}} ><p>{e}</p></div>
                     }
                 })}
-            </div>       
-            <GrapesjsReact id='grapesjs-react' components={this.state.Htmlpage} onInit={(ref)=>{this.setState({grapejsref:ref})}} plugins={['gjs-preset-webpage','gjs-blocks-basic']} />;
+            </div>
             </div>
             }
 
