@@ -1,5 +1,5 @@
-import React,{useContext,useState} from 'react'
-import { Nav,Input,Icon,Alert,InputGroup, Button } from 'rsuite';
+import React from 'react'
+import { Nav,Input,Icon,Alert,InputGroup,Button,Uploader  } from 'rsuite';
 import 'rsuite/dist/styles/rsuite-default.min.css';
 import '././css/Sidenav-Style.css'
 import { Context } from '../../contexApi/Dataprovide';
@@ -7,6 +7,17 @@ import  UploadToDatabase  from './UploadToDatabase';
 import Creatdb from './Createdb';
 import { CKEditor } from '@ckeditor/ckeditor5-react'
 import FullEditor from 'ckeditor5-build-full'
+// import 'grapesjs-preset-webpage';
+import { GrapesjsReact } from "grapesjs-react";
+import "grapesjs/dist/css/grapes.min.css";
+
+
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { EditorState , ContentState } from 'draft-js';
+
+// import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
+
 
 
 var header = new Headers();
@@ -41,6 +52,9 @@ const MenuComm = ({ active, onSelect, ...props }) => {
             <Nav.Item eventKey="Home" icon={<Icon icon="database" style={{color:"#000"}} />}>Database</Nav.Item>
             <Nav.Item eventKey="Editor">Editor</Nav.Item>
             <Nav.Item eventKey="WebScraper">Web Scraper</Nav.Item>
+            <Nav.Item eventKey="PDFReader">PDFReader</Nav.Item>
+            <Nav.Item eventKey="Pages">Pages</Nav.Item>            
+            <Nav.Item eventKey="Apps">Apps</Nav.Item>            
         </Nav>
         );
 };
@@ -57,19 +71,27 @@ const Dbinforeq=()=>{
 
 
 export default class Menu extends React.Component {
+    
         static contextType=Context
+
         constructor(props) {
         super(props);
+
         this.state = {
         active: 'Home', 
         createdb:false,
+        Htmlpage:'',
+        Htmlpages:[],
+        editorState:EditorState.createEmpty(),
+        Htmlimages:[],
         dbinfo:"",
         prevhoverel:{ isempty:true , el:{} },
         ActiveELHtml:"",
+        grapejsref:{},
         uploadbtn:false,
         UploadintoDatabase:"No Data",
         WebscraperData:"",
-        CKEditorData:"React has been designed from the start for gradual adoption,and you can use as little or as much React as you need. Whether you want to get a taste of React, add some interactivity to a simple HTML page, or start a complex React-powered app, the links in this section will help you get started.React has been designed from the start for gradual adoption, and you can use as little or as much React as you need. Perhaps you only want to add some “sprinkles of interactivity” to an existing page. React components are a great way to do that.The majority of websites aren’t, and don’t need to be, single-page apps. With a few lines of code and no build tooling, try React in a small part of your website. You can then either gradually expand its presence, or keep it contained to a few dynamic widgets."
+        CKEditorData:"React"
         };
 
         this.handleCallback = this.handleCallback.bind(this);
@@ -79,12 +101,41 @@ export default class Menu extends React.Component {
         this.onEditorChange = this.onEditorChange.bind(this);
         this.onWebScraperClick = this.onWebScraperClick.bind(this);
         this.oniframeloaded = this.oniframeloaded.bind(this);
+        this.isfileuploaded = this.isfileuploaded.bind(this);
+        this.onEditorStateChange = this.onEditorStateChange.bind(this);
+        this.makeEditorState = this.makeEditorState.bind(this);
+        this.OpenWebPage = this.OpenWebPage.bind(this);
+
         }
+
+
+        makeEditorState(_Html){
+            const contentBlock = htmlToDraft(_Html);
+            if (contentBlock) {
+            const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+            const _editorState = EditorState.createWithContent(contentState);
+            this.setState({editorState:_editorState});
+            }
+        }
+
 
         handleSelect(activeKey) {
         if (activeKey == "WebScraper"){this.oniframeloaded()} 
-        this.setState({ active: activeKey });
+        if(this.context[0].SideNavBtn=="home"){ this.setState({ active: activeKey }); }
+        if (this.context[0].SideNavBtn=="Apps") { this.setState({ active: this.context[0].SideNavBtn}); }
         }
+
+        componentWillReceiveProps(){
+            if (this.context[0].SideNavBtn=="Apps") { this.setState({ active: this.context[0].SideNavBtn}); }
+            if (this.context[0].SideNavBtn=="home") { this.setState({ active: "Home"}); }
+        }
+
+        
+        onEditorStateChange(_editorState){
+            this.setState({editorState:_editorState});
+        }
+
+        
 
         handleCallback(req){
             if(req.from=="CreateTable"){this.setState({createdb: req.show });}
@@ -178,13 +229,39 @@ export default class Menu extends React.Component {
             }
         },1500);
         }
-        
 
+
+        isfileuploaded(indexPage){
+            this.setState({
+                Htmlpage:indexPage.indexpage
+            })
+            this.setState({
+                Htmlpages:indexPage.indexfiles
+            })
+            this.setState({
+                Htmlimages:indexPage.imagefiles
+            })
+            this.makeEditorState(indexPage.indexpage)
+        }
+
+        OpenWebPage(pagename){
+            console.log(pagename)
+            var formdata = new FormData();
+            formdata.append("pagename",pagename);
+            var requestOptions = { method: 'POST', body: formdata };
+            fetch("http://localhost:8080/scrape/page", requestOptions).then(response => response.json())
+            .then((result)=>{
+                this.state.grapejsref.editor.setComponents(result.indexpage)
+            })
+            .catch(error => console.log('error', error));
+        }
 
 
 
         render() {
         const { active } = this.state;
+        const html = '<p>Hey this <strong>editor</strong> rocks 😀</p>';
+        const contentBlock = htmlToDraft(html)
         return (
             <div style={{display:'flex',flexDirection:'row',justifyContent:'center'}}>
             <div style={MenuStyle}>
@@ -258,10 +335,42 @@ export default class Menu extends React.Component {
             </div>
             }
 
+            { active == "PDFReader" && 
+            <div style={MenuContainer,{width:'100%',padding:'10px',height:"500px"}} >
+            <button style={{padding:'10px',margin:'10px 0px'}} >ClearAllFiles</button>
+            <Uploader onSuccess={this.isfileuploaded} style={{boxShadow:"1px 1px 3px #e6e4e4"}} autoUpload={true} accept={".pdf"} action="http://localhost:8080/upload" draggable>
+            <div style={{lineHeight: '200px'}}>Click or Drag files to this area to upload</div>
+            </Uploader>
+            </div>
+            }
+
+            { active == "Pages" && 
+            <div style={MenuContainer,{width:'100%',padding:'10px',height:"500px",display:"flex"}}>
+            <div style={{width:"20%",height:"100%",overflowY:'auto',scrollbarWidth:'thin'}}>
+                {this.state.Htmlpages.map((e)=>{
+                    if(e!=="assets"){
+                            return <div onClick={(e)=>{this.OpenWebPage(e.target.textContent)}} style={{display:'flex',margin:'10px 0px',color:"#fff",padding:"5px",marginRight:'7px',justifyContent:'center','backgroundColor':'#000'}} ><p>{e}</p></div>
+                    }
+                })}
+            </div>       
+            <GrapesjsReact id='grapesjs-react' components={this.state.Htmlpage} onInit={(ref)=>{this.setState({grapejsref:ref})}} plugins={['gjs-preset-webpage','gjs-blocks-basic']} />;
+            </div>
+            }
+
+
+            { active == "Apps" &&
+            <div style={MenuContainer,{width:'100%',padding:'10px',height:"500px",display:"flex",scrollbarWidth:'thin'}}>
+
+            </div>
+            }
+
+
+
 
             </div>
             </div>            
             </div>
+            
             </div>
         );
         }

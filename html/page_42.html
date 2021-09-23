@@ -1,0 +1,34 @@
+<div id="page0" style="position:relative;width:612pt;height:792pt;background-color:white">
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:95pt;left:108pt"><i><span style="font-family:BookAntiqua,serif;font-size:9pt">Working with Views</span></i></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:666pt;left:295pt"><b><span style="font-family:Arial,sans-serif;font-size:9pt">[</span></b><b><span style="font-family:Arial,sans-serif;font-size:8pt"> 26 </span></b><b><span style="font-family:Arial,sans-serif;font-size:9pt">]</span></b></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:115pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    attributes : {</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:126pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">        &apos;data-name&apos; : &apos;User Details&apos;</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:136pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    }</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:147pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">});</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:166pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">The resulting view element will look like this:</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:188pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">&lt;p data-name=&quot;User Details&quot; id=&quot;user_details&quot; class=&quot;user- </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:199pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">details&quot;&gt;&lt;/p&gt;</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:228pt;left:108pt"><b><span style="font-family:Arial,sans-serif;font-size:18pt">Listening to view events</span></b></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:250pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">You can attach DOM event listeners to the DOM elements using the </span><span style="font-family:CourierStd,serif;font-size:9.5pt">events</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt">  </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:262pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">property of view. These events can only be registered on the view element  </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:275pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">along with its child elements:</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:296pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">var UserView = Backbone.View.extend({</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:308pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  html: &apos;&lt;button id=&quot;btn&quot;&gt;Click me&lt;/button&gt;&apos;,</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:321pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  events: {</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:333pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    &apos;click #btn&apos;: &apos;onButtonClick&apos;</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:345pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  },</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:370pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  render: function () {</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:382pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    this.$el.html(this.html);</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:394pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    return this;</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:406pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  },</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:431pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  onButtonClick: function () {</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:443pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    console.log(&apos;Button clicked&apos;);</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:455pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  }</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:468pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">});</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:487pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">We added a </span><span style="font-family:CourierStd,serif;font-size:9.5pt">click</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> event on the button and defined the handler to be called once the </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:499pt;left:107pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">user clicks on that button.</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:521pt;left:107pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">Backbone delegates all of the view events, so that the events are attached even if the </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:533pt;left:107pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">element is not rendered in the DOM. So, if you add one event hash for an element </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:546pt;left:107pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">that is not yet available inside the view DOM, the event will be attached to it as soon </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:558pt;left:107pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">as the element is rendered.</span></p>
+</div>

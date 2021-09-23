@@ -1,0 +1,36 @@
+<div id="page0" style="position:relative;width:612pt;height:792pt;background-color:white">
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:95pt;left:108pt"><i><span style="font-family:BookAntiqua,serif;font-size:9pt">Reducing Boilerplate with Plugin Development</span></i></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:666pt;left:295pt"><b><span style="font-family:Arial,sans-serif;font-size:9pt">[</span></b><b><span style="font-family:Arial,sans-serif;font-size:8pt"> 14 </span></b><b><span style="font-family:Arial,sans-serif;font-size:9pt">]</span></b></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:114pt;left:108pt"><b><span style="font-family:Arial,sans-serif;font-size:18pt">Developing plugins without extending base </span></b></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:135pt;left:108pt"><b><span style="font-family:Arial,sans-serif;font-size:18pt">classes</span></b></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:157pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">Sometimes</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> we find that creating a constructor function and adding methods to </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:170pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">its prototype can be a better choice than extending the Backbone base classes. For </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:183pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">example, in the </span><span style="font-family:CourierStd,serif;font-size:9.5pt">Pagination</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> plugin in the following code, instead of creating a </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:195pt;left:108pt"><span style="font-family:CourierStd,serif;font-size:9.5pt">PaginationCollection</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> class by extending </span><span style="font-family:CourierStd,serif;font-size:9.5pt">Backbone.Collection</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt">, we will prefer </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:208pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">to go for a simpler class&#x2014;a constructor function that accepts two arguments: a </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:220pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">collection and the number of the items to be shown in a page.</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:242pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">// Pagination constructor function</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:254pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">var Pagination = function (collection, noOfItemsInPage) {</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:266pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  if (!collection) {</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:278pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    throw &quot;No collection is passed&quot;;</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:291pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  }</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:303pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  this.currentPage = 1;</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:315pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  this.noOfItemsInPage = noOfItemsInPage || 10;</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:327pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  this.collection = collection;</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:340pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">}</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:364pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">// Use Underscore&apos;s extend method to add properties to your plugin</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:376pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">_.extend(Pagination.prototype, {</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:389pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  nextPage: function () {},</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:401pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  prevPage: function () {}</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:413pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">});</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:438pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">var User = Backbone.Model.extend({</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:450pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  defaults: {</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:462pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    name: &apos;John Doe&apos;</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:474pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  }</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:487pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">});</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:511pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">var Users = Backbone.Collection.extend({</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:523pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  model: User</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:536pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">});</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:560pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">var paging1 = new Pagination(10, new Users());</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:572pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">var paging2 = new Pagination(20, new Users());</span></p>
+</div>

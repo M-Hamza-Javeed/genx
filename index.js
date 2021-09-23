@@ -4,12 +4,16 @@ var cors = require('cors')
 const sqlite3 = require('sqlite3');
 const  { open } = require('sqlite');
 var axios = require('axios');
+const fileUpload = require('express-fileupload');
+const fs = require('fs')
 
 
 
 const app = express();
-app.use(bodyParser.json())
-app.use(cors())
+app.use(fileUpload());
+app.use(bodyParser.json());
+app.use(cors());
+
 var conn=null;
 
 var corsOptions = {
@@ -27,6 +31,37 @@ open({
     console.log("Database open error :",err)
 });
 
+
+
+const pygenhtml=(filename)=>{
+    return new Promise((resolver,reject)=>{
+        var spawn = require('child_process').spawn,
+            py    = spawn('python', ['./pdfreader.py']),
+            data = {"file":filename.toString(),"path":"./html/"},
+            dataString = '';
+        py.stdout.on('data', function(data){ dataString += data.toString(); });
+        py.stdout.on('end',async ()=>{
+            let indexfiles=[];let imagefiles=[]
+
+            await fs.readdir('./html', function (err, files) {
+                if (err) { console.log('Unable to scan directory: ' + err);} 
+                files.forEach(function (file) { indexfiles.push(file) });
+            });
+
+            await fs.readdir('./html/assets/img', function (err, files) {
+                if (err) { console.log('Unable to scan directory: ' + err);} 
+                files.forEach(function (file) { imagefiles.push(file) });
+            });
+
+            await fs.readFile('./html/index.html', 'utf8' , (err, indexpage) => {
+                if (!err) { resolver({"indexpage":indexpage,"indexfiles":indexfiles,"imagefiles":imagefiles}) }
+            });
+
+        });
+        py.stdin.write(JSON.stringify(data));
+        py.stdin.end();
+    });
+}
 
 
 app.get('/',cors(corsOptions), (req, res) => {
@@ -81,6 +116,17 @@ app.get('/data', (req, res) => {
         res.send(data)
     });
 });
+
+
+app.post('/scrape/page', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    let pagename = req.body.pagename;
+    fs.readFile("./html/"+pagename, 'utf8' , (err, indexpage) => {
+        if (!err) { res.send({"indexpage":indexpage}) }
+    });
+});
+
+
 
 app.get('/scrape',cors(corsOptions),(req, res) => {
     var config = { method: 'get',url:(req.query.link), headers: { }};
@@ -184,6 +230,31 @@ app.post("/CreateTable",cors(corsOptions) ,(req, res) => {
         res.send(err);
     });
 });
+
+
+app.post("/upload",cors(corsOptions),(req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+
+    if (!req.files || Object.keys(req.files).length === 0) {
+        return res.status(400).send('No files were uploaded.');
+    }
+
+    file = req.files.file;
+    if(file.name.split('.')[1]=="pdf"){
+    uploadPath = __dirname + '/media/pdf/' + file.name;
+    file.mv(uploadPath, function(err) {
+        pygenhtml(file.name).then((data)=>{
+            console.log(data)
+            res.send(JSON.stringify(data));
+        })
+    });
+    }
+    else{
+        res.status(400).send()
+    }
+});
+
+
 
 
 

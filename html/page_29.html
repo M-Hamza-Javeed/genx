@@ -1,0 +1,42 @@
+<div id="page0" style="position:relative;width:612pt;height:792pt;background-color:white">
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:95pt;left:468pt"><i><span style="font-family:BookAntiqua,serif;font-size:9pt">Chapter 1</span></i></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:666pt;left:295pt"><b><span style="font-family:Arial,sans-serif;font-size:9pt">[</span></b><b><span style="font-family:Arial,sans-serif;font-size:8pt"> 13 </span></b><b><span style="font-family:Arial,sans-serif;font-size:9pt">]</span></b></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:115pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">If you wish to add some extra functionality such as calling another function in your </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:127pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">view&apos;s </span><span style="font-family:CourierStd,serif;font-size:9.5pt">render()</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> method, you can override the render method of the base class. </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:140pt;left:107pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">Check the following example:</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:161pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">var UserItemView = BaseView.extend({</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:174pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  tagName: &apos;div&apos;,</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:186pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  template: &apos;&lt;span&gt;&lt;%= name %&gt;&lt;/span&gt;&apos;,</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:198pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  render: function () {</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:210pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    // Call the parent view&apos;s render function</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:223pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    BaseView.prototype.render.apply(this, arguments);</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:245pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    // Add your code here</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:257pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    this.anotherFn();</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:269pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    return this;</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:281pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  },</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:303pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  anotherFn: function () {}</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:316pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">});</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:335pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">There are a number of functionalities that you can move to your base class depending </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:348pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">on your requirements. For example, in a non-trivial application, we often need to </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:360pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">replace a view with another, destroy the old view by removing it from DOM, and clean </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:373pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">up other dependencies. So, we can add a </span><span style="font-family:CourierStd,serif;font-size:9.5pt">close()</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> method to </span><span style="font-family:CourierStd,serif;font-size:9.5pt">BaseView</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> (as shown in </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:385pt;left:107pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">the following code) that can take care of every view removal mechanism.</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:407pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">var BaseView = Backbone.View.extend({</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:419pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  render: function () {</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:431pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    var tpl = _.template(this.template),</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:444pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">      data = (this.model) ? this.model.toJSON() : {},</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:456pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">      html = tpl(data);</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:480pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    this.$el.html(html);</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:493pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    return this;</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:505pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  },</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:529pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  close: function () {</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:541pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    // Extra stuff goes here</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:566pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    // Remove the view</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:578pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    this.remove();</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:590pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  }</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:603pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">});</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:615pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">// This is not production-ready code, but it clearly gives you the </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:626pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">concept of using custom widgets to reduce boilerplate in your code. It </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:637pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">will not always be necessary to extend a Backbone class to create a </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:647pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">plugin.</span></p>
+</div>

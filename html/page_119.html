@@ -1,0 +1,34 @@
+<div id="page0" style="position:relative;width:612pt;height:792pt;background-color:white">
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:95pt;left:468pt"><i><span style="font-family:BookAntiqua,serif;font-size:9pt">Chapter 6</span></i></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:666pt;left:293pt"><b><span style="font-family:Arial,sans-serif;font-size:9pt">[</span></b><b><span style="font-family:Arial,sans-serif;font-size:8pt"> 103 </span></b><b><span style="font-family:Arial,sans-serif;font-size:9pt">]</span></b></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:115pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">      FooApi.add(options.data);</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:127pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">      break;</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:152pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">    case &apos;update&apos;:</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:164pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">      FooApi.edit(options.data);</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:176pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">      break;</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:200pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">    case &apos;delete&apos;:</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:213pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">      FooApi.delete({</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:225pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">        id: options.data.id</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:237pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">      });</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:249pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">      break;</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:274pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">    case &apos;read&apos;:</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:286pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">      FooApi.read({</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:298pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">        id: options.data.id</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:311pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">      });</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:323pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">      break;</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:335pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">    }</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:347pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">    // Other stuff</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:360pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">  }</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:372pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">});</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:396pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">var user = new User({</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:409pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">  name: &apos;Manali&apos;,</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:421pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">  age: 29</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:433pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">});</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:458pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">// This will call FooApi.add() method</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:470pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">user.save();</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:489pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">Look how we used a </span><span style="font-family:CourierStd,serif;font-size:9.5pt">switch</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> case to call the </span><span style="font-family:CourierStd,serif;font-size:9.5pt">FooApi</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> method for each of the data </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:502pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">operation methods. Now, when you call the </span><span style="font-family:CourierStd,serif;font-size:9.5pt">save()</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> method on the user instance, it </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:514pt;left:107pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">will call the </span><span style="font-family:CourierStd,serif;font-size:9.5pt">FooApi.add()</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> method directly. You can use the other data operations </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:527pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">similarly. So, this is the way in which Backbone&apos;s </span><span style="font-family:CourierStd,serif;font-size:9.5pt">sync()</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> method is overridden to </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:539pt;left:107pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">create a wrapper that maps the models and methods of another API.</span></p>
+</div>

@@ -1,0 +1,37 @@
+<div id="page0" style="position:relative;width:612pt;height:792pt;background-color:white">
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:95pt;left:108pt"><i><span style="font-family:BookAntiqua,serif;font-size:9pt">Working with Models</span></i></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:666pt;left:295pt"><b><span style="font-family:Arial,sans-serif;font-size:9pt">[</span></b><b><span style="font-family:Arial,sans-serif;font-size:8pt"> 70 </span></b><b><span style="font-family:Arial,sans-serif;font-size:9pt">]</span></b></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:115pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">We will look into a simple example with company-employee relationship to explain </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:127pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">the concept of the Backbone-relational plugin:</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:149pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">var Company = Backbone.RelationalModel.extend({</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:161pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  defaults: {</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:173pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    name: &apos;&apos;</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:186pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  },</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:198pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  relations: [{</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:210pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    // &apos;type&apos; can be HasOne or HasMany </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:222pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    // or a direct reference to a relation</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:235pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    type: Backbone.HasMany,</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:259pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    // &apos;key&apos; refer to an attribute name of the related model</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:271pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    key: &apos;employees&apos;,</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:283pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    relatedModel: &apos;Employee&apos;,</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:308pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    // a collection of the related models</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:320pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    collectionType: &apos;Employees&apos;,</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:345pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    // defines the reverse relation with this model</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:357pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    reverseRelation: {</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:369pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">      key: &apos;worksIn&apos;,</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:381pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">      includeInJSON: &apos;id&apos;</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:394pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">      // &apos;relatedModel&apos; is automatically set to &apos;Company&apos;; </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:406pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">      // the &apos;relationType&apos; to &apos;HasOne&apos;.</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:418pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    }</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:430pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  }]</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:443pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">});</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:467pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">var Employee = Backbone.RelationalModel.extend({</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:479pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  defaults: {</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:492pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    name: &apos;&apos;,</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:504pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    worksIn: null</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:516pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  }</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:528pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">});</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:553pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">var Employees = Backbone.Collection.extend({</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:565pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  model: Employee</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:577pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">});</span></p>
+</div>

@@ -1,0 +1,36 @@
+<div id="page0" style="position:relative;width:612pt;height:792pt;background-color:white">
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:95pt;left:468pt"><i><span style="font-family:BookAntiqua,serif;font-size:9pt">Chapter 3</span></i></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:666pt;left:295pt"><b><span style="font-family:Arial,sans-serif;font-size:9pt">[</span></b><b><span style="font-family:Arial,sans-serif;font-size:8pt"> 65 </span></b><b><span style="font-family:Arial,sans-serif;font-size:9pt">]</span></b></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:115pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">      required: true,</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:127pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">      pattern: &apos;email&apos;</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:139pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    }</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:152pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  },</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:176pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  defaults: {</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:188pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    name: &apos;&apos;,</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:200pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    email: &apos;&apos;</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:213pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  }</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:225pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">});</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:244pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">There are some existing validation patterns such as e-mail, number, and URL. </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:257pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">Alternatively, you can use a regular expression as a pattern. Similarly, you may  </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:269pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">need to define the complete validation functionality for an attribute rather than </span><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:282pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">just a regular expression. In that case, you can add custom method validators to  </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:295pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">an attribute. Check the following example:</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:316pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">var User = Backbone.Model.extend({</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:328pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  validation: {</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:341pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    // Do not return anything if validation is passed</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:353pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    name: function (value, attr, computedState) {</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:365pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">      if (!value) {</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:377pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">        return &apos;Name is required&apos;;</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:389pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">      }</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:402pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    },</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:414pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">   </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:426pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    // the method will be called on model&apos;s scope</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:438pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    email: &apos;validateEmail&apos;</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:451pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  },</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:475pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  validateEmail: function (value, attr, computedState) {</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:487pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    if (!value) {</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:500pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">      return &apos;Email is required&apos;;</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:512pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    }</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:524pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  }</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:536pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">});</span></p>
+</div>

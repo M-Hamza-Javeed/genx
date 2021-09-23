@@ -12,6 +12,7 @@ const CustomNav = ({ active, onSelect, ...props }) => {
     <Nav {...props} vertical activeKey={active} onSelect={onSelect} style={styles}>
       <Avatar  size="sm" style={{backgroundColor:'#000',color:'red',margin:'10px'}} ><Icon icon="leaf" /></Avatar>
       <Nav.Item eventKey="home"><Icon icon="home" /></Nav.Item>
+      <Nav.Item eventKey="Apps" ><Icon icon="android" /> </Nav.Item>
       <Nav.Item eventKey="database" ><Icon icon="upload2" /> </Nav.Item>
     </Nav>
   );

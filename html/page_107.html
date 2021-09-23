@@ -1,0 +1,37 @@
+<div id="page0" style="position:relative;width:612pt;height:792pt;background-color:white">
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:95pt;left:468pt"><i><span style="font-family:BookAntiqua,serif;font-size:9pt">Chapter 5</span></i></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:666pt;left:295pt"><b><span style="font-family:Arial,sans-serif;font-size:9pt">[</span></b><b><span style="font-family:Arial,sans-serif;font-size:8pt"> 91 </span></b><b><span style="font-family:Arial,sans-serif;font-size:9pt">]</span></b></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:115pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    &apos;company/:id&apos;: &apos;showCompanyDetails&apos;,</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:127pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    &apos;company/users&apos;: &apos;showCompanyDetails&apos;</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:139pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  },</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:164pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  showHome: function () {},</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:176pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  doLogout: function () {},</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:200pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  showUserDetails: function () {},</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:213pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  searchUsers: function () {},</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:237pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  showCompanyDetails: function () {},</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:249pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  showCompanyDetails: function () {},</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:262pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">});</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:281pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">Now, let&apos;s use </span><span style="font-family:CourierStd,serif;font-size:9.5pt">Backbone.Subroute</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> and see how to define the base router and </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:294pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">module-specific routers. With </span><span style="font-family:CourierStd,serif;font-size:9.5pt">Subroute</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt">, the base router becomes a tiny router  </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:306pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">that only takes care of the router redirections.</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:330pt;left:108pt"><b><span style="font-family:Arial,sans-serif;font-size:14pt">The base router</span></b></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:348pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">The following is the code for the base router:</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:370pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">var App.BaseRouter = Backbone.Router.extend({</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:382pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  routes: {</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:394pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    // Generic routes</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:407pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    &apos;&apos;: &apos;showHome&apos;,</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:419pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    &apos;logout&apos;: &apos;doLogout&apos;,</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:443pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    // Route all users related routes to users subroute</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:456pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    &apos;users/*subroute&apos;: &apos;redirectToUsersModule&apos;,</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:480pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    // Route all company related routes to company subroute</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:492pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    &apos;company/*subroute&apos;: &apos;redirectToCompanyModule&apos;</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:505pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  },</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:529pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  showHome: function () {},</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:541pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  doLogout: function () {},</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:566pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  redirectToUsersModule: function () {</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:578pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    if (!App.usersRouter) {</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:590pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">      App.usersRouter = new App.UsersRouter(&apos;/users&apos;);</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:602pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    }</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:615pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  },</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:639pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  redirectToCompanyModule: function () {</span></p>
+</div>

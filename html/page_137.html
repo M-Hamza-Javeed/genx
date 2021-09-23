@@ -1,0 +1,38 @@
+<div id="page0" style="position:relative;width:612pt;height:792pt;background-color:white">
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:95pt;left:468pt"><i><span style="font-family:BookAntiqua,serif;font-size:9pt">Chapter 7</span></i></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:666pt;left:293pt"><b><span style="font-family:Arial,sans-serif;font-size:9pt">[</span></b><b><span style="font-family:Arial,sans-serif;font-size:8pt"> 121 </span></b><b><span style="font-family:Arial,sans-serif;font-size:9pt">]</span></b></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:115pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">    var User = function () {};</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:139pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">    User.prototype.getUserDetails = function () {</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:152pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">      var userId = Mediator.getLoggedinUser();</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:176pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">      // Load user&apos;s details with the loggedin user id</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:188pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">    }</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:213pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">    return User;</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:225pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">  });</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:249pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">// Event module</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:262pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">define([&apos;app/mediator&apos;],</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:274pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">  function (Mediator) {</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:286pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">    var Event = function () {};</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:311pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">    Event.prototype.loadEvents = function () {</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:323pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">      var userLocation = Mediator.getUserCurrentLocation();</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:347pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">      // load events nearby user&apos;s location</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:360pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">    }</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:384pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">    Event.prototype.showEventDetails = function () {}</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:409pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">    return Event;</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:421pt;left:125pt"><span style="font-family:CourierStd,serif;font-size:9pt">  });</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:440pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">As you can see, we just pass the </span><span style="font-family:CourierStd,serif;font-size:9.5pt">Mediator</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> instance in both the module definitions </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:453pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">and place the reusable and shared methods inside the mediator so that they can be </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:465pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">accessed from any module. This is a basic example; we hope that it conveys the idea </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:478pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">of using a mediator. In a complete application level, a mediator may take care of a lot </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:490pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">of its functionality. Using a mediator without knowing its proper use is not a good </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:503pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">idea&#x2014;let&apos;s look at the pros and cons of using a mediator pattern:</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:524pt;left:125pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">&#x2022; </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:524pt;left:143pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">The pros are as follows:</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:540pt;left:161pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> </span><span style="font-family:SymbolMT,sans-serif;font-size:10.5pt">&#xb0;</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:541pt;left:179pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">The biggest advantage of using the mediator pattern is that it </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:554pt;left:179pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">enforces the communication channel between modules to change </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:566pt;left:179pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">from many-to-many to many-to-one. So, the modules will not </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:579pt;left:179pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">communicate directly with each other but via the </span><span style="font-family:CourierStd,serif;font-size:9.5pt">mediator</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> object.</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:595pt;left:162pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> </span><span style="font-family:SymbolMT,sans-serif;font-size:10.5pt">&#xb0;</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:596pt;left:180pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">It omits the tight coupling between modules and thus reduces the </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:609pt;left:180pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">architectural complexity in large applications.</span></p>
+</div>

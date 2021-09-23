@@ -1,0 +1,150 @@
+<div id="page0" style="position:relative;width:612pt;height:792pt;background-color:white">
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:95pt;left:468pt"><i><span style="font-family:BookAntiqua,serif;font-size:9pt">Chapter 7</span></i></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:666pt;left:293pt"><b><span style="font-family:Arial,sans-serif;font-size:9pt">[</span></b><b><span style="font-family:Arial,sans-serif;font-size:8pt"> 109 </span></b><b><span style="font-family:Arial,sans-serif;font-size:9pt">]</span></b></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:115pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">We kept all of the static assets inside the </span><span style="font-family:CourierStd,serif;font-size:9.5pt">assets</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> folder. You can add more folders </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:127pt;left:107pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">if you have other types of static resources. The templates are stored in a separate </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:140pt;left:107pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">directory that matches the </span><span style="font-family:CourierStd,serif;font-size:9.5pt">views</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> folder structure. We will load these templates </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:153pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">dynamically as needed and optimize them later to create a single file with all the </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:165pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">templates (refer to </span><i><span style="font-family:BookAntiqua,serif;font-size:10.5pt">Appendix C</span></i><span style="font-family:BookAntiqua,serif;font-size:10.5pt">, </span><i><span style="font-family:BookAntiqua,serif;font-size:10.5pt">Organizing Templates with AMD and Require.js</span></i><span style="font-family:BookAntiqua,serif;font-size:10.5pt">, for more </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:178pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">details). The </span><span style="font-family:CourierStd,serif;font-size:9.5pt">main.js</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> file is the entry point of the application. You will see its usage </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:190pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">in the following section when we will discuss working with AMD. The </span><span style="font-family:CourierStd,serif;font-size:9.5pt">app.js</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> file </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:203pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">holds the application class that acts as the topmost parent class of the application. All </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:216pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">the utility files such as </span><span style="font-family:CourierStd,serif;font-size:9.5pt">utility.js</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> or </span><span style="font-family:CourierStd,serif;font-size:9.5pt">helper.js</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt">, which mostly contain the helper </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:228pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">methods, sit in the </span><span style="font-family:CourierStd,serif;font-size:9.5pt">util</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> folder. The </span><span style="font-family:CourierStd,serif;font-size:9.5pt">test</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> folder is the main directory in which all </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:241pt;left:107pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">the test scripts are stored. The </span><span style="font-family:CourierStd,serif;font-size:9.5pt">config</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> and </span><span style="font-family:CourierStd,serif;font-size:9.5pt">mixin</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> folders are there to store the config </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:253pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">and reusable mixin files respectively. This file structure is basic and can work as the </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:266pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">boilerplate of your application.</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:287pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">There is another pattern that became popular for large and complex applications </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:300pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">recently&#x2014;the modular approach. In this case, we divide the complete application </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:312pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">into multiple small modules; each module will add a specific functionality to the </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:325pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">app. We will look into it later in this </span><span style="font-family:BookAntiqua,serif;font-size:10.5pt">chapter, but we can discuss the file structure of </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:338pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">this pattern here. A module consists of its own views, models, and collections. You </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:350pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">can have one </span><span style="font-family:CourierStd,serif;font-size:9.5pt">templates</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> folder for each module and place that module&apos;s templates </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:363pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">separately in that folder, or you can leave it as it is as a single </span><span style="font-family:CourierStd,serif;font-size:9.5pt">templates</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> folder </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:375pt;left:107pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">for the complete project. We will go for the latter; the </span><span style="font-family:CourierStd,serif;font-size:9.5pt">app</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> folder will look like the </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:388pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">following screenshot:</span></p>
+<img style="position:absolute;top:413pt;left:142pt;width:327pt;height:152pt" src="data:image/png;base64,
+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">
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:581pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">As you can see, there is no separate </span><span style="font-family:CourierStd,serif;font-size:9.5pt">models</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt">, </span><span style="font-family:CourierStd,serif;font-size:9.5pt">collections</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt">, or </span><span style="font-family:CourierStd,serif;font-size:9.5pt">views</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> folder; instead, </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:594pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">there is a </span><span style="font-family:CourierStd,serif;font-size:9.5pt">modules</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> directory that includes all the modules of the application. Each </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:606pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">module contains a </span><span style="font-family:CourierStd,serif;font-size:9.5pt">main.js</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> file that works as the starting point of that module.</span></p>
+</div>

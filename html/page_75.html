@@ -1,0 +1,34 @@
+<div id="page0" style="position:relative;width:612pt;height:792pt;background-color:white">
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:95pt;left:468pt"><i><span style="font-family:BookAntiqua,serif;font-size:9pt">Chapter 3</span></i></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:666pt;left:295pt"><b><span style="font-family:Arial,sans-serif;font-size:9pt">[</span></b><b><span style="font-family:Arial,sans-serif;font-size:8pt"> 59 </span></b><b><span style="font-family:Arial,sans-serif;font-size:9pt">]</span></b></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:114pt;left:108pt"><b><span style="font-family:Arial,sans-serif;font-size:18pt">Using the defaults property</span></b></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:136pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">In some cases, you may want your model to have a set of default values until new </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:148pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">data is added to it. Backbone provides a </span><span style="font-family:CourierStd,serif;font-size:9.5pt">defaults</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> property where you can specify </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:161pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">the initial data, as shown in the following code snippet:</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:182pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">var User = Backbone.Model.extend({</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:195pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  defaults: {</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:207pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    name: &apos;John Doe&apos;,</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:219pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    age: 20</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:231pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">  }</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:244pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">});</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:268pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">console.log(new User().get(&apos;name&apos;)); </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:280pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">// Output =&gt; John Doe</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:300pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">When added for every instance of the model, any unspecified attribute will </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:312pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">automatically be set to the default value.</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:341pt;left:108pt"><b><span style="font-family:Arial,sans-serif;font-size:16pt">Avoiding object references in the defaults property</span></b></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:361pt;left:108pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">Make sure that you never use any object or array directly in the </span><span style="font-family:CourierStd,serif;font-size:9.5pt">defaults</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt"> property. </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:374pt;left:107pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">This is because the objects are shared by reference in JavaScript, and if added into </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:386pt;left:108pt"><span style="font-family:CourierStd,serif;font-size:9.5pt">defaults</span><span style="font-family:BookAntiqua,serif;font-size:10.5pt">, the objects will get shared among all the instances of the model. An </span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:399pt;left:107pt"><span style="font-family:BookAntiqua,serif;font-size:10.5pt">example follows to explain the case:</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:420pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">var User = Backbone.Model.extend({</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:433pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    defaults : {</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:445pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">        hobbies : []</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:457pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">    }</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:469pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">});</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:494pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">var user1 = new User(),</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:506pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">user2 = new User();</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:531pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">user1.get(&apos;hobbies&apos;).push(&apos;photography&apos;);</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:543pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">user2.get(&apos;hobbies&apos;).push(&apos;biking&apos;);</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:567pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">console.log(user1.get(&apos;hobbies&apos;));</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:580pt;left:126pt"><span style="font-family:CourierStd,serif;font-size:9pt">// Output =&gt; [&quot;photography&quot;, &quot;biking&quot;]</span></p>
+</div>
