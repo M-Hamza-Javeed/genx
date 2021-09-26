@@ -23,21 +23,17 @@ export default class Sidenav extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      active: 'home'
+      active: 'Home'
     };
     this.handleSelect = this.handleSelect.bind(this);
   }
 
-  componentDidMount(){
-    console.log("Context :",this.context[1])
-    
-  }
 
   handleSelect(activeKey) {
     this.setState({ active: activeKey });
-    this.context[1]({SideNavBtn:activeKey})
-
+    this.context[1]({SideNavBtn:activeKey,Htmlpage:this.context[0].Htmlpage})
   }
+
   render() {
     const { active } = this.state;
 

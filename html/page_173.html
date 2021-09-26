@@ -1,0 +1,45 @@
+<div id="page0" style="position:relative;width:540pt;height:648pt;background-color:white">
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:32pt;left:221pt"><span style="font-family:Times,serif;font-size:9.963pt">Chapter 6. Transparency</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:98pt;left:72pt"><b><span style="font-family:Times,serif;font-size:11.955pt">Example 6.2. An SNG Example.</span></b></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:144pt;left:72pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">#SNG: This is a synthetic SNG test file</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:166pt;left:72pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt"># Our first test is a paletted (type 3) image.</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:176pt;left:72pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">IHDR: {</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:187pt;left:102pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">width: 16;</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:198pt;left:102pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">height: 19;</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:209pt;left:102pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">bitdepth: 8;</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:219pt;left:102pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">using color: palette;</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:230pt;left:102pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">with interlace;</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:241pt;left:72pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">}</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:263pt;left:72pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt"># Sample bit depth chunk</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:273pt;left:72pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">sBIT: {</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:284pt;left:79pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">red: 8;</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:295pt;left:79pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">green: 8;</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:306pt;left:79pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">blue: 8;</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:316pt;left:72pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">}</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:338pt;left:72pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt"># An example palette: three colors, one of which</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:349pt;left:72pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt"># we will render transparent</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:359pt;left:72pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">PLTE: {</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:370pt;left:83pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">(0,</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:370pt;left:118pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">0, 255)</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:381pt;left:83pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">(255,</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:381pt;left:121pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">0,</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:381pt;left:144pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">0)</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:392pt;left:83pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">&quot;dark slate gray&quot;,</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:402pt;left:72pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">}</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:423pt;left:72pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt"># Suggested palette</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:434pt;left:72pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">sPLT {</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:445pt;left:83pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">name: &quot;A random suggested palette&quot;;</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:455pt;left:83pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">depth: 8;</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:466pt;left:83pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">(0,</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:466pt;left:118pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">0, 255), 255, 7;</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:477pt;left:83pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">(255,</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:477pt;left:121pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">0,</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:477pt;left:144pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">0), 255, 5;</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:488pt;left:83pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">( 70,</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:488pt;left:116pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">70,</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:488pt;left:140pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">70), 255, 3;</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:498pt;left:72pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">}</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:520pt;left:72pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt"># The viewer will actually use this...</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:531pt;left:72pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">IMAGE: {</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:581pt;left:262pt"><span style="font-family:Times,serif;font-size:9.963pt">172</span></p>
+</div>

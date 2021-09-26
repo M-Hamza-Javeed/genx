@@ -7,16 +7,8 @@ import  UploadToDatabase  from './UploadToDatabase';
 import Creatdb from './Createdb';
 import { CKEditor } from '@ckeditor/ckeditor5-react'
 import FullEditor from 'ckeditor5-build-full'
-// import 'grapesjs-preset-webpage';
-import { GrapesjsReact } from "grapesjs-react";
-import "grapesjs/dist/css/grapes.min.css";
-
-
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { EditorState , ContentState } from 'draft-js';
-
-// import draftToHtml from 'draftjs-to-html';
-import htmlToDraft from 'html-to-draftjs';
+import './css/Design.css'
+import './css/Main.css'
 
 
 
@@ -54,6 +46,7 @@ const MenuComm = ({ active, onSelect, ...props }) => {
             <Nav.Item eventKey="WebScraper">Web Scraper</Nav.Item>
             <Nav.Item eventKey="PDFReader">PDFReader</Nav.Item>
             <Nav.Item eventKey="Pages">Pages</Nav.Item>            
+            <Nav.Item eventKey="Design">Design</Nav.Item>            
             <Nav.Item eventKey="Apps">Apps</Nav.Item>            
         </Nav>
         );
@@ -82,7 +75,6 @@ export default class Menu extends React.Component {
         createdb:false,
         Htmlpage:'',
         Htmlpages:[],
-        editorState:EditorState.createEmpty(),
         Htmlimages:[],
         dbinfo:"",
         prevhoverel:{ isempty:true , el:{} },
@@ -103,31 +95,28 @@ export default class Menu extends React.Component {
         this.oniframeloaded = this.oniframeloaded.bind(this);
         this.isfileuploaded = this.isfileuploaded.bind(this);
         this.onEditorStateChange = this.onEditorStateChange.bind(this);
-        this.makeEditorState = this.makeEditorState.bind(this);
         this.OpenWebPage = this.OpenWebPage.bind(this);
 
         }
 
 
-        makeEditorState(_Html){
-            const contentBlock = htmlToDraft(_Html);
-            if (contentBlock) {
-            const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
-            const _editorState = EditorState.createWithContent(contentState);
-            this.setState({editorState:_editorState});
-            }
-        }
-
-
         handleSelect(activeKey) {
-        if (activeKey == "WebScraper"){this.oniframeloaded()} 
-        if(this.context[0].SideNavBtn=="Home"){ this.setState({ active: activeKey }); }
-        if (this.context[0].SideNavBtn=="Apps") { this.setState({ active: this.context[0].SideNavBtn}); }
+        if (activeKey == "WebScraper"){this.oniframeloaded()}
+        this.setState({ active: activeKey });
+
+        // if(this.context[0].SideNavBtn=="Home" && activeKey != "Apps" && activeKey != "Design" ){
+        //     this.setState({ active: activeKey });
+        // }
+        // if(this.context[0].SideNavBtn=="Apps"){
+        //     this.setState({ active: activeKey });
+        // }
         }
 
         componentWillReceiveProps(){
-            if (this.context[0].SideNavBtn=="Apps") { this.setState({ active: this.context[0].SideNavBtn}); }
-            if (this.context[0].SideNavBtn=="Home") { this.setState({ active: "Home"}); }
+            // if (this.context[0].SideNavBtn=="Apps") { 
+            //     // this.setState({ active: this.context[0].SideNavBtn}); 
+            // }
+            
         }
 
         
@@ -161,10 +150,9 @@ export default class Menu extends React.Component {
 
         componentDidMount(){
             Dbinforeq().then((data)=>{ 
-            this.setState({
-                dbinfo:data
-            });
-            console.log(this.state.dbinfo)
+                this.setState({
+                    dbinfo:data
+                });
             });
         }
 
@@ -181,7 +169,7 @@ export default class Menu extends React.Component {
                         .then((response)=>{
                             resolver(response.json())
                     })
-                    .catch(error => console.log('error ->', error));
+                    .catch(error => {console.log('error ->', error);reject(error)});
             }).then((data)=>{this.setState({WebscraperData: data.data});})
             .then(()=>{
                     this.oniframeloaded();
@@ -192,7 +180,6 @@ export default class Menu extends React.Component {
         oniframeloaded(){
         setTimeout(()=>{
             let iframe = document.querySelector('iframe');
-            console.log(iframe)
             if (iframe){
                 iframe=iframe.contentWindow;
                 iframe.document.body.addEventListener('mouseover',(e)=>{
@@ -241,18 +228,17 @@ export default class Menu extends React.Component {
             this.setState({
                 Htmlimages:indexPage.imagefiles
             })
-            this.makeEditorState(indexPage.indexpage)
         }
 
         OpenWebPage(pagename){
-            console.log(pagename)
             var formdata = new FormData();
             formdata.append("pagename",pagename);
             var requestOptions = { method: 'POST', body: formdata };
             fetch("http://localhost:8080/scrape/page", requestOptions).then(response => response.json())
             .then((result)=>{
-                this.context[1]({Htmlpage:result.indexpage})
-                this.state.grapejsref.editor.setComponents(result.indexpage)
+                this.context[1]({SideNavBtn:this.context[0].SideNavBtn,Htmlpage:result.indexpage})
+                localStorage.setItem("Htmlpage",result.indexpage)
+                let grapesjseditor = window.open("http://localhost:3000/HTMLEditor")
             })
             .catch(error => console.log('error', error));
         }
@@ -262,105 +248,110 @@ export default class Menu extends React.Component {
         render() {
         const { active } = this.state;
         const html = '<p>Hey this <strong>editor</strong> rocks 😀</p>';
-        const contentBlock = htmlToDraft(html)
         return (
             <div style={{display:'flex',flexDirection:'row',justifyContent:'center'}}>
             <div style={MenuStyle}>
 
             
             <MenuComm appearance="subtle" active={active} onSelect={this.handleSelect} />            
-            <div style={{display:'flex',flexDirection:'row',justifyContent:'space-between'}}>
+            <div className={"Menu"}>
             <div style={{width:'100%',overflow:'auto',display:'flex'}}>
 
 
             { active == "Home" && 
-            <div style={{width:"100%",display:'flex',height:'500px'}} >
+                <div className={"Menu-Home"}>
+                <div className={"MenuContainer"} style={{width:'65%'}} >
 
-            <div style={MenuContainer,{width:'65%'}} >
-                <div style={{display:'flex',justifyContent:'space-around',padding:'20px'}}>
-                
-                <Button onClick={this.CreateDatabase} 
-                style={{margin:'2px 5px',width:'170px',backgroundColor:'#000',color:'#fff'}}>
-                <Icon   icon="database" style={{padding:'0px 10px',color:'#fff'}} />Create Tables</Button> 
-                
-                <Button style={{width:'170px',margin:'2px 5px',backgroundColor:'#000',color:'#fff'}}>
-                <Icon   icon="file-text" style={{padding:'0px 10px',color:'#fff'}} />Generate Files</Button> 
-                
+                    <div className={"Home-btn-outer-div"}>
+                        <Button className={"Home-btn"} onClick={this.CreateDatabase}  >
+                        <Icon className={"Home-btn-icon"} icon="database" />Create Tables</Button> 
+                        <Button className={"Home-btn"}>
+                        <Icon  className={"Home-btn-icon"} icon="file-text" />Generate Files</Button> 
+                    </div>
+
                 </div>
-            </div>
-            <div style={{"width":"35%",padding:"5px 10px",border:"1px solid rgb(189, 189, 189)",borderRight:"0px",borderBottom:"0px"}}>
-            <p style={{lineBreak:'anywhere',fontSize:"18px"}}>{this.state.dbinfo}</p>
-            </div>
-            <Creatdb parentCallback = {this.handleCallback} show={this.state.createdb}></Creatdb>
-            </div>
+                <div className={"Home-db-info"}>
+                <p style={{lineBreak:'anywhere',fontSize:"18px"}}>{this.state.dbinfo}</p>
+                </div>
+                <Creatdb parentCallback = {this.handleCallback} show={this.state.createdb}></Creatdb>
+                </div>
             }
 
 
 
             
             { active == "Editor" && 
-            <div style={{display:"flex",flexDirection:'row !important',width:"100%",height:'500px',marginTop:'10px'}} >
+            <div className={"Editor-Menu"}>
             
-            <div style={{width:'65%',padding:'10px',overflowY:'auto',overflowX:'hidden',margin:"0px 10px"}}>
-                <CKEditor 
-                data = {this.state.CKEditorData}
-                editor={FullEditor}
-                onChange={this.onEditorChange} />
+            <div>
+                <CKEditor data = {this.state.CKEditorData} editor={FullEditor} onChange={this.onEditorChange} />
                 <div style={{width:'100',marginTop:'10px',display:'flex',justifyContent:'end'}}>
-                    <Button  onClick={this.UploadtoDatabase} style={{width:'200px',backgroundColor:'#424242',color:'#fff'}}>Upload to Database</Button>
+                    <Button className={"Home-btn"}  onClick={this.UploadtoDatabase} >Upload to Database</Button>
                 </div>
-                <UploadToDatabase
-                data={this.state.CKEditorData}
-                dbinfo={this.state.dbinfo}
+                <UploadToDatabase data={this.state.CKEditorData} dbinfo={this.state.dbinfo} 
                 parentCallback = {this.handleCallback} show={this.state.uploadbtn} />
             </div>
             
-            <div style={{"width":"35%",overflow:"auto",padding:"5px 10px",border:"1px solid rgb(189, 189, 189)",borderRight:"0px",borderBottom:"0px"}}>
-            <div dangerouslySetInnerHTML={{ __html: this.state.CKEditorData }} ></div>
-            </div>
+            <div className={"Editor-viewer"}><div dangerouslySetInnerHTML={{ __html: this.state.CKEditorData }} ></div></div>
             </div>
             }
 
 
             { active == "WebScraper" && 
-            <div style={MenuContainer,{width:'100%',padding:'10px',height:"500px"}} >
+            <div className={"MenuContainer","Menu-inner-con"}>
             <InputGroup style={styles}>
                 <Input id={"WebScraperSearchbtn"} placeholder={"Link"} />
-                <InputGroup.Button onClick={this.onWebScraperClick}>
-                    <Icon icon="search" />
-                </InputGroup.Button>
+                <InputGroup.Button onClick={this.onWebScraperClick}><Icon icon="search" /></InputGroup.Button>
             </InputGroup>
-            <iframe srcDoc={this.state.WebscraperData}
-            style={{border:"1px solid #ccc",width:'100%',height:'calc( 100% - 40px)'}}>
+            <iframe className={"WebScraper-iframe"} srcDoc={this.state.WebscraperData} >
             </iframe>
             </div>
             }
 
             { active == "PDFReader" && 
-            <div style={MenuContainer,{width:'100%',padding:'10px',height:"500px"}} >
+            <div  className={"MenuContainer","Menu-inner-con"} >
             <button style={{padding:'10px',margin:'10px 0px'}} >ClearAllFiles</button>
-            <Uploader onSuccess={this.isfileuploaded} style={{boxShadow:"1px 1px 3px #e6e4e4"}} autoUpload={true} accept={".pdf"} action="http://localhost:8080/upload" draggable>
+            <Uploader onSuccess={this.isfileuploaded} style={{boxShadow:"1px 1px 3px #e6e4e4"}} autoUpload={true} accept={".pdf"} 
+            action="http://localhost:8080/upload" draggable>
             <div style={{lineHeight: '200px'}}>Click or Drag files to this area to upload</div>
             </Uploader>
             </div>
             }
 
-            { active == "Pages" && 
-            <div style={MenuContainer,{width:'100%',padding:'10px',height:"500px",display:"flex"}}>
+            { active == "Pages"  && 
+            <div className={"MenuContainer","Menu-inner-con"} style={{display:'flex'}}>
             <div style={{width:"20%",height:"100%",overflowY:'auto',scrollbarWidth:'thin'}}>
-                {this.state.Htmlpages.map((e)=>{
-                    if(e!=="assets"){
-                            return <div onClick={(e)=>{this.OpenWebPage(e.target.textContent)}} style={{display:'flex',margin:'10px 0px',color:"#fff",padding:"5px",marginRight:'7px',justifyContent:'center','backgroundColor':'#000'}} ><p>{e}</p></div>
-                    }
-                })}
+                <div style={{border:'1px solid #ccc',height:'100%'}}>
+                    {this.state.Htmlpages.map((e)=>{
+                        if(e!=="assets"){
+                                return <div className={"Page-btn"} onClick={(e)=>{this.OpenWebPage(e.target.textContent)}}>{e}</div>
+                        }
+                    })}
+                </div>
             </div>
+            <iframe className={"WebScraper-iframe"} style={{margin:"0px 10px"}} srcDoc={this.context[0].Htmlpage} width={'100%'} height={"100%"} ></iframe>
             </div>
             }
 
 
             { active == "Apps" &&
             <div style={MenuContainer,{width:'100%',padding:'10px',height:"500px",display:"flex",scrollbarWidth:'thin'}}>
+                <div><h3>Apps</h3></div>
+            </div>
+            }
 
+            { active == "Design" &&
+            <div className={"Design-outer-Container"}>
+                <div><h3>Design</h3></div>
+                <div className={"Design-Card-Container"} >
+                <img src="../Designs/screen-0.jpg" />
+                <img  src="../Designs/screen-1.jpg" />
+                <img  src="../Designs/screen-2.jpg" />
+                <img  src="../Designs/screen-3.jpg" />
+                <img  src="../Designs/screen-4.jpg" />
+                <img  src="../Designs/screen-5.jpg" />
+                <img  src="../Designs/screen-6.jpg" />
+                </div>
             </div>
             }
 

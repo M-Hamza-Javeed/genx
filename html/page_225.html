@@ -1,0 +1,174 @@
+<div id="page0" style="position:relative;width:540pt;height:648pt;background-color:white">
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:32pt;left:218pt"><span style="font-family:Times,serif;font-size:9.963pt">Chapter 8. Minilanguages</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:98pt;left:72pt"><b><span style="font-family:Times,serif;font-size:11.955pt">Table 8.2. Introduction to regular-expression operations.</span></b></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:117pt;left:72pt"><b><span style="font-family:Times,serif;font-size:9.963pt">Wildcard</span></b></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:117pt;left:144pt"><b><span style="font-family:Times,serif;font-size:9.963pt">Supported in</span></b></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:117pt;left:216pt"><b><span style="font-family:Times,serif;font-size:9.963pt">Matches</span></b></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:143pt;left:72pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">\</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:141pt;left:144pt"><span style="font-family:Times,serif;font-size:9.963pt">All</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:141pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">Escape next char-</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:153pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">acter.</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:153pt;left:256pt"><span style="font-family:Times,serif;font-size:9.963pt">Toggles</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:165pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">whether</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:165pt;left:258pt"><span style="font-family:Times,serif;font-size:9.963pt">follow-</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:177pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">ing</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:177pt;left:240pt"><span style="font-family:Times,serif;font-size:9.963pt">punctuation</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:189pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">is</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:189pt;left:231pt"><span style="font-family:Times,serif;font-size:9.963pt">treated</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:189pt;left:266pt"><span style="font-family:Times,serif;font-size:9.963pt">as</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:189pt;left:283pt"><span style="font-family:Times,serif;font-size:9.963pt">a</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:201pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">wildcard or not.</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:212pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">Following letters</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:224pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">or digits are inter-</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:236pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">preted in various</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:248pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">different</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:248pt;left:267pt"><span style="font-family:Times,serif;font-size:9.963pt">ways</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:260pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">depending on the</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:272pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">program.</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:284pt;left:72pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">.</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:282pt;left:144pt"><span style="font-family:Times,serif;font-size:9.963pt">All</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:282pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">Any character.</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:295pt;left:72pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">^</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:293pt;left:144pt"><span style="font-family:Times,serif;font-size:9.963pt">All</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:293pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">Beginning of line</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:306pt;left:72pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">$</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:304pt;left:144pt"><span style="font-family:Times,serif;font-size:9.963pt">All</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:304pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">End of line</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:318pt;left:72pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">[...]</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:316pt;left:144pt"><span style="font-family:Times,serif;font-size:9.963pt">All</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:316pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">Any of the char-</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:328pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">acters</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:328pt;left:254pt"><span style="font-family:Times,serif;font-size:9.963pt">between</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:340pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">the brackets</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:350pt;left:72pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">[^...]</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:348pt;left:144pt"><span style="font-family:Times,serif;font-size:9.963pt">All</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:348pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">Any</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:348pt;left:247pt"><span style="font-family:Times,serif;font-size:9.963pt">characters</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:361pt;left:216pt"><i><span style="font-family:Times,serif;font-size:9.963pt">except</span></i></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:361pt;left:266pt"><i><span style="font-family:Times,serif;font-size:9.963pt">those</span></i></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:372pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">between</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:372pt;left:275pt"><span style="font-family:Times,serif;font-size:9.963pt">the</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:384pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">brackets.</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:395pt;left:72pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">*</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:392pt;left:144pt"><span style="font-family:Times,serif;font-size:9.963pt">All</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:392pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">Accept any num-</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:404pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">ber of instances of</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:416pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">the previous ele-</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:428pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">ment.</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:439pt;left:72pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">?</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:437pt;left:144pt"><span style="font-family:Times,serif;font-size:9.963pt">egrep/Emacs,</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:449pt;left:144pt"><span style="font-family:Times,serif;font-size:9.963pt">Perl/Python</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:437pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">Accept</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:437pt;left:253pt"><span style="font-family:Times,serif;font-size:9.963pt">zero</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:437pt;left:279pt"><span style="font-family:Times,serif;font-size:9.963pt">or</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:449pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">one</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:449pt;left:251pt"><span style="font-family:Times,serif;font-size:9.963pt">instances</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:461pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">of</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:461pt;left:233pt"><span style="font-family:Times,serif;font-size:9.963pt">the</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:461pt;left:253pt"><span style="font-family:Times,serif;font-size:9.963pt">previous</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:473pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">element.</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:483pt;left:72pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">+</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:481pt;left:144pt"><span style="font-family:Times,serif;font-size:9.963pt">egrep/Emacs,</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:493pt;left:144pt"><span style="font-family:Times,serif;font-size:9.963pt">Perl/Python</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:481pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">Accept</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:481pt;left:254pt"><span style="font-family:Times,serif;font-size:9.963pt">one</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:481pt;left:279pt"><span style="font-family:Times,serif;font-size:9.963pt">or</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:493pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">more</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:493pt;left:251pt"><span style="font-family:Times,serif;font-size:9.963pt">instances</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:505pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">of</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:505pt;left:233pt"><span style="font-family:Times,serif;font-size:9.963pt">the</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:505pt;left:253pt"><span style="font-family:Times,serif;font-size:9.963pt">previous</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:517pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">element.</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:528pt;left:72pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">{n}</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:525pt;left:144pt"><span style="font-family:Times,serif;font-size:9.963pt">egrep,</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:537pt;left:144pt"><span style="font-family:Times,serif;font-size:9.963pt">Perl/Python;</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:549pt;left:144pt"><span style="font-family:Times,serif;font-size:9.963pt">as</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:551pt;left:166pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">\{n\}</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:549pt;left:208pt"><span style="font-family:Times,serif;font-size:9.963pt">in</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:561pt;left:144pt"><span style="font-family:Times,serif;font-size:9.963pt">Emacs</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:525pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">Accept exactly</span><tt><span style="font-family:Courier,monospace;font-size:8.966pt"> n</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:537pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">repetitions of the</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:549pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">previous element.</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:561pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">Not</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:561pt;left:248pt"><span style="font-family:Times,serif;font-size:9.963pt">supported</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:573pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">by</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:573pt;left:236pt"><span style="font-family:Times,serif;font-size:9.963pt">some</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:573pt;left:267pt"><span style="font-family:Times,serif;font-size:9.963pt">older</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:585pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">regexp engines.</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:598pt;left:72pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">{n,}</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:596pt;left:144pt"><span style="font-family:Times,serif;font-size:9.963pt">egrep,</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:608pt;left:144pt"><span style="font-family:Times,serif;font-size:9.963pt">Perl/Python;</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:620pt;left:144pt"><span style="font-family:Times,serif;font-size:9.963pt">as</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:622pt;left:164pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">\{n,\}</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:620pt;left:208pt"><span style="font-family:Times,serif;font-size:9.963pt">in</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:632pt;left:144pt"><span style="font-family:Times,serif;font-size:9.963pt">Emacs</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:596pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">Accept</span><tt><span style="font-family:Courier,monospace;font-size:8.966pt"> n</span></tt><span style="font-family:Times,serif;font-size:9.963pt"> or more</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:608pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">repetitions of the</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:620pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">previous element.</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:632pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">Not</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:632pt;left:248pt"><span style="font-family:Times,serif;font-size:9.963pt">supported</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:643pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">by</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:643pt;left:236pt"><span style="font-family:Times,serif;font-size:9.963pt">some</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:643pt;left:267pt"><span style="font-family:Times,serif;font-size:9.963pt">older</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:655pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">regexp engines.</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:668pt;left:72pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">{m,n}</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:666pt;left:144pt"><span style="font-family:Times,serif;font-size:9.963pt">egrep,</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:678pt;left:144pt"><span style="font-family:Times,serif;font-size:9.963pt">Perl/Python;</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:690pt;left:144pt"><span style="font-family:Times,serif;font-size:9.963pt">as</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:692pt;left:161pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">\{m,n\}</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:690pt;left:208pt"><span style="font-family:Times,serif;font-size:9.963pt">in</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:702pt;left:144pt"><span style="font-family:Times,serif;font-size:9.963pt">Emacs</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:666pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">Accept</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:666pt;left:253pt"><span style="font-family:Times,serif;font-size:9.963pt">at</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:666pt;left:269pt"><span style="font-family:Times,serif;font-size:9.963pt">least</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:678pt;left:216pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">m</span></tt><span style="font-family:Times,serif;font-size:9.963pt"> and at most</span><tt><span style="font-family:Courier,monospace;font-size:8.966pt"> n</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:690pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">repetitions of the</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:702pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">previous element.</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:714pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">Not</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:714pt;left:248pt"><span style="font-family:Times,serif;font-size:9.963pt">supported</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:726pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">by</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:726pt;left:236pt"><span style="font-family:Times,serif;font-size:9.963pt">some</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:726pt;left:267pt"><span style="font-family:Times,serif;font-size:9.963pt">older</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:738pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">regexp engines.</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:750pt;left:72pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">|</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:748pt;left:144pt"><span style="font-family:Times,serif;font-size:9.963pt">egrep,</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:760pt;left:144pt"><span style="font-family:Times,serif;font-size:9.963pt">Perl/Python;</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:772pt;left:144pt"><span style="font-family:Times,serif;font-size:9.963pt">as</span><tt><span style="font-family:Courier,monospace;font-size:8.966pt"> \|</span></tt><span style="font-family:Times,serif;font-size:9.963pt"> in Emacs</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:748pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">Accept</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:748pt;left:252pt"><span style="font-family:Times,serif;font-size:9.963pt">the</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:748pt;left:273pt"><span style="font-family:Times,serif;font-size:9.963pt">ele-</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:760pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">ment to the left</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:772pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">or the element to</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:784pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">the right. This is</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:796pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">usually used with</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:808pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">some</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:808pt;left:248pt"><span style="font-family:Times,serif;font-size:9.963pt">form</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:808pt;left:279pt"><span style="font-family:Times,serif;font-size:9.963pt">of</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:820pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">pattern-grouping</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:832pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">delimiters.</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:854pt;left:72pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">(...)</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:852pt;left:144pt"><span style="font-family:Times,serif;font-size:9.963pt">Perl/Python;</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:864pt;left:144pt"><span style="font-family:Times,serif;font-size:9.963pt">as</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:866pt;left:161pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">\(...\)</span></tt></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:864pt;left:208pt"><span style="font-family:Times,serif;font-size:9.963pt">in</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:876pt;left:144pt"><span style="font-family:Times,serif;font-size:9.963pt">older versions.</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:852pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">Treat this pattern</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:864pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">as</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:864pt;left:232pt"><span style="font-family:Times,serif;font-size:9.963pt">a</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:864pt;left:245pt"><span style="font-family:Times,serif;font-size:9.963pt">group</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:864pt;left:276pt"><span style="font-family:Times,serif;font-size:9.963pt">(in</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:876pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">newer</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:876pt;left:261pt"><span style="font-family:Times,serif;font-size:9.963pt">regexp</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:888pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">engines like Perl</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:900pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">and</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:900pt;left:247pt"><span style="font-family:Times,serif;font-size:9.963pt">Python&#x2019;s).</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:912pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">Older</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:912pt;left:261pt"><span style="font-family:Times,serif;font-size:9.963pt">regexp</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:924pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">engines such as</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:936pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">those</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:936pt;left:245pt"><span style="font-family:Times,serif;font-size:9.963pt">in</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:936pt;left:261pt"><span style="font-family:Times,serif;font-size:9.963pt">Emacs</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:948pt;left:216pt"><span style="font-family:Times,serif;font-size:9.963pt">and grep require</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:960pt;left:216pt"><tt><span style="font-family:Courier,monospace;font-size:8.966pt">\(...\)</span></tt><span style="font-family:Times,serif;font-size:9.963pt">.</span></p>
+<p style="position:absolute;white-space:pre;margin:0;padding:0;top:581pt;left:262pt"><span style="font-family:Times,serif;font-size:9.963pt">224</span></p>
+</div>

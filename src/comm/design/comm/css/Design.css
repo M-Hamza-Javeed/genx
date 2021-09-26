@@ -1,0 +1,29 @@
+.Design-outer-Container{
+    width:100%;
+    padding:10px;
+    height:500px;
+    display:flex;
+    scrollbar-width:thin;
+    display:flex;
+    flex-direction:column
+}
+
+.Design-Card-Container{
+    display: flex;
+    justify-Content:space-around;
+    flex-flow:wrap;
+    align-items:center
+}
+
+.Design-Card-Container img{
+    width:250px;
+    height:400px;
+    padding:10px
+}
+
+
+
+
+
+
+
