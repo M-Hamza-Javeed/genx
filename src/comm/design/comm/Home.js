@@ -96,6 +96,7 @@ export default class Menu extends React.Component {
         this.isfileuploaded = this.isfileuploaded.bind(this);
         this.onEditorStateChange = this.onEditorStateChange.bind(this);
         this.OpenWebPage = this.OpenWebPage.bind(this);
+        this.OpenGrapesjsEditor = this.OpenGrapesjsEditor.bind(this);
 
         }
 
@@ -238,9 +239,12 @@ export default class Menu extends React.Component {
             .then((result)=>{
                 this.context[1]({SideNavBtn:this.context[0].SideNavBtn,Htmlpage:result.indexpage})
                 localStorage.setItem("Htmlpage",result.indexpage)
-                let grapesjseditor = window.open("http://localhost:3000/HTMLEditor")
             })
             .catch(error => console.log('error', error));
+        }
+
+        OpenGrapesjsEditor(){
+            let grapesjseditor = window.open("http://localhost:3000/HTMLEditor")
         }
 
 
@@ -329,7 +333,15 @@ export default class Menu extends React.Component {
                     })}
                 </div>
             </div>
+            <div style={{width: '100%',padding:'10px',height: '92%'}}>
+
+            <div style={{display:'flex',justifyContent:'end',marginRight:'-10px'}}>
+                <button onClick={this.OpenGrapesjsEditor} style={{margin:'10px',padding:'5px'}} >Open Editor</button>
+                <button style={{margin:'10px',padding:'5px'}} >Save</button>
+            </div>
+
             <iframe className={"WebScraper-iframe"} style={{margin:"0px 10px"}} srcDoc={this.context[0].Htmlpage} width={'100%'} height={"100%"} ></iframe>
+            </div>
             </div>
             }
 

@@ -36,4 +36,4 @@ justify-content:space-between;
 .Editor-viewer{width:35%;overflow:auto;padding:5px 10px;border:1px solid rgb(189,189,189);border-right:0px;border-bottom:0px}
 .WebScraper-iframe{border:1px solid #ccc;width:100%;height:calc( 100% - 40px);padding:10px;height: 100%;}
 
-.Page-btn{display:flex;margin:10px 0px;color:"#fff";padding:"5px";margin-right:7px;justify-content:center;background-color:#000}
+.Page-btn{display:flex;margin:10px 0px;color:#fff;padding:5px;margin-right:7px;justify-content:center;background-color:#000}
