@@ -97,6 +97,7 @@ export default class Menu extends React.Component {
         this.onEditorStateChange = this.onEditorStateChange.bind(this);
         this.OpenWebPage = this.OpenWebPage.bind(this);
         this.OpenGrapesjsEditor = this.OpenGrapesjsEditor.bind(this);
+        this.OpenGrapesjsEditorSave = this.OpenGrapesjsEditorSave.bind(this);
 
         }
 
@@ -239,12 +240,19 @@ export default class Menu extends React.Component {
             .then((result)=>{
                 this.context[1]({SideNavBtn:this.context[0].SideNavBtn,Htmlpage:result.indexpage})
                 localStorage.setItem("Htmlpage",result.indexpage)
+                localStorage.setItem("Pagename",pagename)
             })
             .catch(error => console.log('error', error));
         }
 
         OpenGrapesjsEditor(){
             let grapesjseditor = window.open("http://localhost:3000/HTMLEditor")
+        }
+
+        OpenGrapesjsEditorSave(){
+            console.log("let save the state of grapesjseditor")
+            console.log(localStorage)
+            
         }
 
 
@@ -336,11 +344,15 @@ export default class Menu extends React.Component {
             <div style={{width: '100%',padding:'10px',height: '92%'}}>
 
             <div style={{display:'flex',justifyContent:'end',marginRight:'-10px'}}>
-                <button onClick={this.OpenGrapesjsEditor} style={{margin:'10px',padding:'5px'}} >Open Editor</button>
-                <button style={{margin:'10px',padding:'5px'}} >Save</button>
+                <Button color="green" appearance="primary" onClick={this.OpenGrapesjsEditor} 
+                style={{margin:'5px',padding:'5px 20px'}} >
+                Open Editor</Button>
+                <Button color="green" appearance="primary" onClick={this.OpenGrapesjsEditorSave} 
+                style={{margin:'5px',padding:'5px 20px'}} >
+                Save</Button>
             </div>
 
-            <iframe className={"WebScraper-iframe"} style={{margin:"0px 10px"}} srcDoc={this.context[0].Htmlpage} width={'100%'} height={"100%"} ></iframe>
+            <iframe className={"WebScraper-iframe"} style={{margin:"0px 5px"}} srcDoc={this.context[0].Htmlpage} width={'100%'} height={"100%"} ></iframe>
             </div>
             </div>
             }
