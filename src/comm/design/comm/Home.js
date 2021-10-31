@@ -48,6 +48,7 @@ const MenuComm = ({ active, onSelect, ...props }) => {
             <Nav.Item eventKey="Pages">Pages</Nav.Item>            
             <Nav.Item eventKey="Design">Design</Nav.Item>            
             <Nav.Item eventKey="Apps">Apps</Nav.Item>            
+            <Nav.Item eventKey="Htmlfun">Htmlfun</Nav.Item>            
         </Nav>
         );
 };
@@ -55,10 +56,7 @@ const MenuComm = ({ active, onSelect, ...props }) => {
 const Dbinforeq=()=>{
     return new Promise((resolver,reject)=>{
         fetch("http://localhost:8080/dbinfo", requestOptions)
-            .then((response)=>{
-                resolver(response.text())
-            })
-            .catch(error => console.log('error', error));
+            .then((response)=>{resolver(response.text())}).catch(error => console.log('error', error));
     });
 }
 
@@ -79,6 +77,7 @@ export default class Menu extends React.Component {
         dbinfo:"",
         prevhoverel:{ isempty:true , el:{} },
         ActiveELHtml:"",
+        zipfiles:[],
         grapejsref:{},
         uploadbtn:false,
         UploadintoDatabase:"No Data",
@@ -98,7 +97,38 @@ export default class Menu extends React.Component {
         this.OpenWebPage = this.OpenWebPage.bind(this);
         this.OpenGrapesjsEditor = this.OpenGrapesjsEditor.bind(this);
         this.OpenGrapesjsEditorSave = this.OpenGrapesjsEditorSave.bind(this);
+        this.Htmlfun = this.Htmlfun.bind(this);
+        this.HtmlfunSucc = this.HtmlfunSucc.bind(this);
+        }
 
+        HtmlfunSucc(e){
+        localStorage.setItem("zipfiles",JSON.stringify(e))
+        this.setState({zipfiles:e},()=>{Alert.success('Files Downloaded !', 3000)})
+        }
+
+        Htmlfun(e){
+            console.log(e.target.name)
+            let _zipfiles=JSON.parse(localStorage.getItem('zipfiles'))
+
+            if(e.target.name=="remove_footer_header"){
+                    var raw = JSON.stringify({"files":_zipfiles});
+                    fetch("http://localhost:8080/projects/project/html/remove_footer_header",
+                    {method:'POST',headers:header,body:raw}).then((response)=>{
+                        Alert.success('footer/header were removed !', 3000)
+                    }).catch((e)=>{
+                        Alert.error('Error Remove footer/header from page !', 3000)})
+            }
+            if(e.target.name=="removeclass"){
+                let removenode = document.querySelector('#removeclasshtml').value
+                var raw = JSON.stringify({"files":_zipfiles,"removeclass":removenode});
+                if(removenode!=""){
+                    fetch("http://localhost:8080/projects/project/html/removeclass",
+                    {method:'POST',headers:header,body:raw}).then((response)=>{
+                        Alert.success('el were removed !', 3000)
+                    }).catch((e)=>{
+                        Alert.error('Error Remove removeclass from page !', 3000)})
+                }
+            }
         }
 
 
@@ -378,6 +408,30 @@ export default class Menu extends React.Component {
                 </div>
             </div>
             }
+
+
+            { active == "Htmlfun" &&
+            <div className={"Design-outer-Container"}>
+            
+            <Uploader onSuccess={this.HtmlfunSucc} style={{boxShadow:"1px 1px 3px #e6e4e4"}} autoUpload={true} accept={".zip"} multiple={true}
+            action="http://localhost:8080/projects/upload" draggable>
+            <div style={{lineHeight: '200px'}}>Click or Drag files to this area to upload</div>
+            </Uploader>
+
+            <div style={{display:"flex",marginTop:"20px"}}>
+            <Button name={"remove_footer_header"} style={{width:"240px"}} className={"Home-btn"}  onClick={this.Htmlfun}>
+            <Icon className={"Home-btn-icon"} icon="database" />Remove Header / Footer</Button>
+            
+            <InputGroup style={{width:"400px"}}>
+                <Input id={"removeclasshtml"} placeholder={"Enter classname to remove el"} />
+                <InputGroup.Button name="removeclass" onClick={this.Htmlfun}>Remove Class</InputGroup.Button>
+            </InputGroup>
+
+            </div>
+            </div>
+            }
+
+
 
 
 

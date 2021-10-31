@@ -6,7 +6,8 @@ const  { open } = require('sqlite');
 var axios = require('axios');
 const fileUpload = require('express-fileupload');
 const fs = require('fs')
-
+var AdmZip = require("adm-zip");
+var HTMLParser = require('node-html-parser');
 
 
 const app = express();
@@ -255,7 +256,171 @@ app.post("/upload",cors(corsOptions),(req, res) => {
 });
 
 
+app.post("/CreateTable",cors(corsOptions) ,(req, res) => {
+    console.log(req.body.sql);
+    res.setHeader('Content-Type', 'application/json');
+    conn.run(req.body.sql).then((data)=>{
+        res.send(data)
+    }).catch((err)=>{
+        res.send(err);
+    });
+});
 
+
+app.post("/",cors(corsOptions),(req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+
+    if (!req.files || Object.keys(req.files).length === 0) {
+        return res.status(400).send('No files were uploaded.');
+    }
+
+    file = req.files.file;
+    if(file.name.split('.')[1]=="pdf"){
+    uploadPath = __dirname + '/media/pdf/' + file.name;
+    file.mv(uploadPath, function(err) {
+        pygenhtml(file.name).then((data)=>{
+            console.log(data)
+            res.send(JSON.stringify(data));
+        })
+    });
+    }
+    else{
+        res.status(400).send()
+    }
+});
+
+app.post("/CreateTable",cors(corsOptions) ,(req, res) => {
+    console.log(req.body.sql);
+    res.setHeader('Content-Type', 'application/json');
+    conn.run(req.body.sql).then((data)=>{
+        res.send(data)
+    }).catch((err)=>{
+        res.send(err);
+    });
+});
+
+
+app.post("/Htmlfun/:action",cors(corsOptions),(req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    console.log(req.params.action)
+});
+
+app.post("/projects/upload",cors(corsOptions),async(req, res) => {
+    let uploadPath="";let extractdir=""
+    if (!req.files || Object.keys(req.files).length === 0) {
+        return res.status(400).send('No files were uploaded.');
+    }
+
+    file = req.files.file;
+    let ext=file.name.split('.')
+
+
+    if(ext[ext.length-1]=="zip"){
+        await fs.readdir(__dirname + '/projects/', function (err, files) {
+            if(files.includes(file.name)){uploadPath = (__dirname + '/projects/'+file.name+"_"+files.length)}
+            else{uploadPath = (__dirname + '/projects/'+file.name)}
+
+            fs.mkdir(uploadPath,(e)=>{
+                if(e){
+                    res.send("error during creating project !")
+                }
+                else{
+
+                    if(files.includes(file.name)){uploadPath = (__dirname + '/projects/'+file.name+"_"+files.length+"/") + file.name;extractdir=(__dirname + '/projects/'+file.name+"_"+files.length)
+                    }else{uploadPath = (__dirname + '/projects/'+file.name+"/") + file.name;
+                    extractdir=(__dirname + '/projects/'+file.name)}
+
+
+                    file.mv(uploadPath,async(err)=>{
+                        try {
+                            let files=[]
+                            var zip = new AdmZip(uploadPath);
+                            var zipEntries = zip.getEntries();
+                            await zip.extractAllTo(extractdir,true)
+                            await zipEntries.forEach((zipEntry)=>{
+                            if(fs.lstatSync(extractdir+"/"+zipEntry.entryName).isFile()){
+                                files.push(extractdir+"/"+zipEntry.entryName);
+                            }                            
+                            });
+                            await res.send({"file":files})
+                            
+                        } catch (err) {
+                            res.send("error during extraction of zip file")
+                            console.log(err)
+                        }
+                    });
+                }
+            })
+        });
+    }
+    else{
+        res.send("Upload zip file!")
+    }
+});
+
+const saveHtmlfile=(files,c)=>{
+    fs.readFile(files[c],'utf8' , (err, data) => {
+        var root = HTMLParser.parse(data);
+        let headernode = root.querySelector('header');
+        let fotternode = root.querySelector('footer');
+
+        if(headernode){headernode.remove();}
+        if(fotternode){fotternode.remove();}
+        
+        fs.writeFile(files[c],root.innerHTML,(e)=>{
+            if(e){console.log("error during saving file!")}
+        });
+
+    });
+}
+
+
+
+
+
+
+app.post("/projects/project/html/:action",cors(corsOptions),async(req, res) => {
+    if(req.params.action=="removefooter"){
+        res.send({"message":"completed!"})
+    }
+    else if(req.params.action=="remove_footer_header"){
+        let files= req.body.files.file;
+
+        for(let c=0;c<files.length;c++){
+            let name = files[c].split('.')
+            if(name[name.length-1]=="html"){ saveHtmlfile(files,c) }
+        }
+
+        res.send({"message":"completed!"})
+    }
+    else if(req.params.action=="removeclass"){
+
+        if(req.body.files.file){
+        let files= req.body.files.file;
+        
+        for(let c=0;c<files.length;c++){
+            let name = files[c].split('.')
+            if(name[name.length-1]=="html"){
+                fs.readFile(files[c],'utf8' , (err, data) => {
+                    var root = HTMLParser.parse(data);
+                    console.log(req.body.removeclass)
+                    let classnode = root.querySelector(req.body.removeclass.toString().trim());
+                    console.log(classnode)
+                    if(classnode){
+                        classnode.remove();
+                        fs.writeFile(files[c],root.innerHTML,(e)=>{if(e){console.log("error during saving file!")}});
+                    }
+                });
+            }
+        }
+                res.send({"message":"completed!"})
+        }    
+        else{
+                res.send({"message":"Files were not loaded yet!"})
+        }
+    }
+    else{ res.send("Files were not loaded yet") }
+});
 
 
 process.on('unhandledRejection', error => {
