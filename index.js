@@ -8,6 +8,9 @@ const fileUpload = require('express-fileupload');
 const fs = require('fs')
 var AdmZip = require("adm-zip");
 var HTMLParser = require('node-html-parser');
+const { exec } = require('child_process');
+const { spawn } = require("child_process");
+var path = require('path');
 
 
 const app = express();
@@ -16,6 +19,8 @@ app.use(bodyParser.json());
 app.use(cors());
 
 var conn=null;
+let globalstate={"activeDir":"","projectName":""}
+
 
 var corsOptions = {
     origin: '*',
@@ -300,10 +305,96 @@ app.post("/CreateTable",cors(corsOptions) ,(req, res) => {
 });
 
 
+app.post("/app/icons/generater",cors(corsOptions) ,(req, res) => {
+
+    if(globalstate.projectName == "" || globalstate.activeDir == "" ){
+        console.log("Project Name / ActivDir is not set!")
+            return res.status(400).send("Project Name / ActivDir is not set!")
+    }else{
+        if (!req.files || Object.keys(req.files).length === 0) {
+            console.log("No files were uploaded.")
+            return res.status(400).send('No files were uploaded.');
+        }
+    
+        file = req.files.file;
+        _filename=file.name.split('.')[1]
+        if(_filename.toLowerCase()=="png" || _filename.toLowerCase()=="jpg" || _filename.toLowerCase()=="webp" || _filename.toLowerCase()=="jpeg"){
+            uploadPath = globalstate.activeDir+"/uploaded";
+
+            if (fs.existsSync(uploadPath)) {
+                console.log('Directory exists!');
+                file.mv(uploadPath+"/"+file.name, function(err) {
+                    exec("cd "+uploadPath+" && icon "+(uploadPath+"/"+file.name), (error, stdout, stderr) => {
+                        if (error) {
+                            console.log(`error: ${error.message}`);
+                            return res.sendStatus(500)
+                        }
+                        if (stderr) {
+                            console.log(`stderr: ${stderr}`);
+                            return res.status(200).send("Icon generated !")
+                        }
+                        console.log(`stdout: ${stdout}`);
+                        return res.sendStatus(400)
+                    });
+
+                });
+            } else {
+
+
+            fs.mkdir(uploadPath,(e)=>{
+                if(e){
+                    console.log(e)
+                    return res.send("error during creating project !")
+                }
+                else{
+                    file.mv(uploadPath+"/"+file.name, function(err) {
+                        exec("cd "+uploadPath+" && icon "+(uploadPath+"/"+file.name), (error, stdout, stderr) => {
+                            if (error) {
+                                console.log(`error: ${error.message}`);
+                                return res.sendStatus(500)
+                            }
+                            if (stderr) {
+                                console.log(`stderr: ${stderr}`);
+                                return res.sendStatus(200)
+                            }
+                            console.log(`stdout: ${stdout}`);
+                            return res.sendStatus(400)
+                        });
+
+                    });
+
+                }
+            });
+
+        }
+
+        }
+        else{
+            return res.status(400).send("upload png file!")
+        }
+    }
+
+});
+
+
 app.post("/Htmlfun/:action",cors(corsOptions),(req, res) => {
     res.setHeader('Content-Type', 'application/json');
-    console.log(req.params.action)
+    res.send()
 });
+
+
+app.post("/project/:action",cors(corsOptions),(req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    if(req.body.projectname && req.body.dirname){
+        globalstate.activeDir = path.normalize(req.body.dirname);
+        globalstate.projectName = req.body.projectname;
+        res.send()
+    }
+    else{
+        res.send("Project Name / Dir Name is empty !")
+    }
+});
+
 
 app.post("/projects/upload",cors(corsOptions),async(req, res) => {
     let uploadPath="";let extractdir=""
@@ -331,6 +422,7 @@ app.post("/projects/upload",cors(corsOptions),async(req, res) => {
                     extractdir=(__dirname + '/projects/'+file.name)}
 
 
+
                     file.mv(uploadPath,async(err)=>{
                         try {
                             let files=[]
@@ -342,7 +434,7 @@ app.post("/projects/upload",cors(corsOptions),async(req, res) => {
                                 files.push(extractdir+"/"+zipEntry.entryName);
                             }                            
                             });
-                            await res.send({"file":files})
+                            await res.send({"file":files,"dirname":extractdir,"projectname":file.name})
                             
                         } catch (err) {
                             res.send("error during extraction of zip file")

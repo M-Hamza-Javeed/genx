@@ -11,7 +11,6 @@ import './css/Design.css'
 import './css/Main.css'
 
 
-
 var header = new Headers();
 header.append("Content-Type", "application/json");
 var requestOptions = {method: 'GET',headers: Headers,};
@@ -22,7 +21,7 @@ const styles = {
 };
 
 const MenuStyle = {
-    marginTop:'30px',
+    marginTop:'15px',
     marginLeft:'50px',
     width:'90%',
     backgroundColor:'#fdfdfdc7',
@@ -32,7 +31,7 @@ const MenuStyle = {
 
 const MenuContainer={
     padding:10,
-    height:500,
+    height:450,
     overflow: 'auto',
     display: 'flex',
     flexDirection: 'column'
@@ -75,6 +74,8 @@ export default class Menu extends React.Component {
         Htmlpages:[],
         Htmlimages:[],
         dbinfo:"",
+        Activeprojectname:"Project Name",
+        Activedir:"dir path ...",
         prevhoverel:{ isempty:true , el:{} },
         ActiveELHtml:"",
         zipfiles:[],
@@ -99,15 +100,38 @@ export default class Menu extends React.Component {
         this.OpenGrapesjsEditorSave = this.OpenGrapesjsEditorSave.bind(this);
         this.Htmlfun = this.Htmlfun.bind(this);
         this.HtmlfunSucc = this.HtmlfunSucc.bind(this);
+        this.IconsGeneratorfunsuccess = this.IconsGeneratorfunsuccess.bind(this);
+        this.IconsGeneratorfunerror = this.IconsGeneratorfunerror.bind(this);
+        this.IconsGeneratorfunupload = this.IconsGeneratorfunupload.bind(this);
+        
+        }
+        
+
+        IconsGeneratorfunsuccess(req){
+            Alert.success("Icons Generated!")
+        }
+
+        IconsGeneratorfunupload(e){
+            let _projectname= this.state.Activeprojectname;
+            let _dirname= this.state.Activedir;
+            fetch("http://localhost:8080/project/infoupdate",
+                    {method:'POST',headers:header,body:JSON.stringify({"projectname":_projectname,"dirname":_dirname})}).then((response)=>{
+                        console.log(response)
+                    }).catch((e)=>{ console.log(e) })
+        }
+
+        IconsGeneratorfunerror(error){
+            Alert.error(error.response)
         }
 
         HtmlfunSucc(e){
-        localStorage.setItem("zipfiles",JSON.stringify(e))
-        this.setState({zipfiles:e},()=>{Alert.success('Files Downloaded !', 3000)})
+        localStorage.setItem("zipfiles",JSON.stringify(e));
+        this.setState({zipfiles:e},()=>{Alert.success('Files Downloaded !', 3000)});
+        this.setState({Activeprojectname:e.projectname});
+        this.setState({Activedir:e.dirname});
         }
 
         Htmlfun(e){
-            console.log(e.target.name)
             let _zipfiles=JSON.parse(localStorage.getItem('zipfiles'))
 
             if(e.target.name=="remove_footer_header"){
@@ -293,7 +317,10 @@ export default class Menu extends React.Component {
         return (
             <div style={{display:'flex',flexDirection:'row',justifyContent:'center'}}>
             <div style={MenuStyle}>
-
+                <div style={{padding:"5px 11px",display:"flex",justifyContent:"space-between","backgroundColor":"#000",color:"#fff",fontWeight:"bold"}}>
+                <span style={{width:"25%"}}>{this.state.Activeprojectname}</span>
+                <span style={{fontWeight:"lighter",width:"75%",textAlign:"end"}}>{this.state.Activedir}</span>
+                </div>
             
             <MenuComm appearance="subtle" active={active} onSelect={this.handleSelect} />            
             <div className={"Menu"}>
@@ -323,7 +350,7 @@ export default class Menu extends React.Component {
 
             
             { active == "Editor" && 
-            <div className={"Editor-Menu"}>
+            <div className={"Editor-Menu"} style={{height:"490px"}} >
             
             <div>
                 <CKEditor data = {this.state.CKEditorData} editor={FullEditor} onChange={this.onEditorChange} />
@@ -413,7 +440,7 @@ export default class Menu extends React.Component {
             { active == "Htmlfun" &&
             <div className={"Design-outer-Container"}>
             
-            <Uploader onSuccess={this.HtmlfunSucc} style={{boxShadow:"1px 1px 3px #e6e4e4"}} autoUpload={true} accept={".zip"} multiple={true}
+            <Uploader  onSuccess={this.HtmlfunSucc} style={{boxShadow:"1px 1px 3px #e6e4e4"}} autoUpload={true} accept={".zip"} multiple={true}
             action="http://localhost:8080/projects/upload" draggable>
             <div style={{lineHeight: '200px'}}>Click or Drag files to this area to upload</div>
             </Uploader>
@@ -426,13 +453,16 @@ export default class Menu extends React.Component {
                 <Input id={"removeclasshtml"} placeholder={"Enter classname to remove el"} />
                 <InputGroup.Button name="removeclass" onClick={this.Htmlfun}>Remove Class</InputGroup.Button>
             </InputGroup>
+            </div>
 
+            <div>
+            <Uploader listType="picture" onError={this.IconsGeneratorfunerror} shouldUpload={this.IconsGeneratorfunupload} onSuccess={this.IconsGeneratorfunsuccess} multiple autoUpload={true} action="http://localhost:8080/app/icons/generater">
+                <button>
+                <svg width="1.5em" height="1.5em" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true" focusable="false" class="rs-icon" aria-label="camera retro" data-category="legacy"><path d="M16.571 14.857a.564.564 0 00-.571-.571 2.866 2.866 0 00-2.857 2.857c0 .321.25.571.571.571s.571-.25.571-.571c0-.946.768-1.714 1.714-1.714.321 0 .571-.25.571-.571zm4 2.322c0 2.518-2.054 4.571-4.571 4.571s-4.571-2.054-4.571-4.571 2.054-4.571 4.571-4.571 4.571 2.054 4.571 4.571zM2.286 27.429h27.429v-2.286H2.286v2.286zm20.571-10.25c0-3.786-3.071-6.857-6.857-6.857s-6.857 3.071-6.857 6.857 3.071 6.857 6.857 6.857 6.857-3.071 6.857-6.857zM4.571 5.714h6.857V3.428H4.571v2.286zM2.286 9.143h27.429V4.572H14.929l-1.143 2.286h-11.5v2.286zM32 4.571v22.857a2.279 2.279 0 01-2.286 2.286H2.285a2.279 2.279 0 01-2.286-2.286V4.571a2.279 2.279 0 012.286-2.286h27.429A2.279 2.279 0 0132 4.571z"></path></svg></button>
+            </Uploader>
             </div>
             </div>
             }
-
-
-
 
 
 
