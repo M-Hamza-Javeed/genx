@@ -103,7 +103,8 @@ export default class Menu extends React.Component {
         this.IconsGeneratorfunsuccess = this.IconsGeneratorfunsuccess.bind(this);
         this.IconsGeneratorfunerror = this.IconsGeneratorfunerror.bind(this);
         this.IconsGeneratorfunupload = this.IconsGeneratorfunupload.bind(this);
-        
+        this.GetDesigns = this.GetDesigns.bind(this);        
+        this.GetDesignsiframe = this.GetDesignsiframe.bind(this);        
         }
         
 
@@ -153,13 +154,38 @@ export default class Menu extends React.Component {
                         Alert.error('Error Remove removeclass from page !', 3000)})
                 }
             }
+            if(e.target.name=="calcpages"){
+                if(_zipfiles){
+                    let htmlfiles=[]
+                    _zipfiles.file.forEach((file)=>{
+                        let filepath = file.split("/");
+                        let filename = filepath[filepath.length-1];
+                        let fileexte = filename.split(".")
+                        let projectpath = file.split("genx/projects/")
+                        if(fileexte[fileexte.length-1]=="html"){
+                            htmlfiles.push({"path":file,
+                            "projectpath":projectpath[projectpath.length-1],
+                            "name":fileexte.slice([0,fileexte.length-1])})
+                        }
+                    })
+                    console.log(htmlfiles[0])
+                    Alert.success('Html pages', 3000)
+                    localStorage.setItem("htmlfiles",JSON.stringify(htmlfiles))
+                }
+                // fetch("http://localhost:8080/projects/project/html/calcpages",
+                //     {method:'POST',headers:header,body:raw}).then((response)=>{
+                //         Alert.success('el were removed !', 3000)
+                //     }).catch((e)=>{
+                //         Alert.error('Error Remove removeclass from page !', 3000)})
+            }
         }
 
 
         handleSelect(activeKey) {
         if (activeKey == "WebScraper"){this.oniframeloaded()}
+        if (activeKey == "Design"){this.GetDesignsiframe();}
         this.setState({ active: activeKey });
-
+        
         // if(this.context[0].SideNavBtn=="Home" && activeKey != "Apps" && activeKey != "Design" ){
         //     this.setState({ active: activeKey });
         // }
@@ -210,7 +236,34 @@ export default class Menu extends React.Component {
                     dbinfo:data
                 });
             });
+            this.GetDesigns()
         }
+
+        GetDesignsiframe(){
+            setTimeout((e)=>{
+                let  DesignCardContainer = document.getElementsByClassName("Design-Card-Container")[0]
+                JSON.parse(localStorage.getItem("DesignTemplatesHTML")).designs.forEach((files)=>{
+                    let img = document.createElement("img")
+                    let conn = document.createElement("div")
+                    let btn = document.createElement("button")
+                    img.setAttribute("src",files.Image)
+                    conn.setAttribute("style","display:flex;flex-direction:column;")
+                    img.setAttribute("style","height:350px;width:290px;margin:20px;border:1px solid")
+                    btn.setAttribute("style","height:40px;width:290px;margin:0px 20px")
+                    btn.textContent="Design";conn.append(img);conn.append(btn);DesignCardContainer.append(conn)
+                });
+            },100)
+        }
+
+
+
+        GetDesigns(){
+            fetch(("http://localhost:8080/designs/getdesigns"), {method: 'GET',headers: Headers})
+                .then((response)=>response.json()).then((result)=>{localStorage.setItem("DesignTemplatesHTML",result)})
+        }
+
+
+
 
         onWebScraperClick(){
             let link = document.querySelector('#WebScraperSearchbtn').value;
@@ -425,13 +478,6 @@ export default class Menu extends React.Component {
             <div className={"Design-outer-Container"}>
                 <div><h3>Design</h3></div>
                 <div className={"Design-Card-Container"} >
-                <img src="../Designs/screen-0.jpg" />
-                <img  src="../Designs/screen-1.jpg" />
-                <img  src="../Designs/screen-2.jpg" />
-                <img  src="../Designs/screen-3.jpg" />
-                <img  src="../Designs/screen-4.jpg" />
-                <img  src="../Designs/screen-5.jpg" />
-                <img  src="../Designs/screen-6.jpg" />
                 </div>
             </div>
             }
@@ -453,12 +499,13 @@ export default class Menu extends React.Component {
                 <Input id={"removeclasshtml"} placeholder={"Enter classname to remove el"} />
                 <InputGroup.Button name="removeclass" onClick={this.Htmlfun}>Remove Class</InputGroup.Button>
             </InputGroup>
+            <Button style={{width:"240px"}} name={"calcpages"} className={"Home-btn"} onClick={this.Htmlfun} >Html Pages</Button>
             </div>
 
-            <div>
+            <div style={{display:"flex",alignItems: "center"}}>
             <Uploader listType="picture" onError={this.IconsGeneratorfunerror} shouldUpload={this.IconsGeneratorfunupload} onSuccess={this.IconsGeneratorfunsuccess} multiple autoUpload={true} action="http://localhost:8080/app/icons/generater">
-                <button>
-                <svg width="1.5em" height="1.5em" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true" focusable="false" class="rs-icon" aria-label="camera retro" data-category="legacy"><path d="M16.571 14.857a.564.564 0 00-.571-.571 2.866 2.866 0 00-2.857 2.857c0 .321.25.571.571.571s.571-.25.571-.571c0-.946.768-1.714 1.714-1.714.321 0 .571-.25.571-.571zm4 2.322c0 2.518-2.054 4.571-4.571 4.571s-4.571-2.054-4.571-4.571 2.054-4.571 4.571-4.571 4.571 2.054 4.571 4.571zM2.286 27.429h27.429v-2.286H2.286v2.286zm20.571-10.25c0-3.786-3.071-6.857-6.857-6.857s-6.857 3.071-6.857 6.857 3.071 6.857 6.857 6.857 6.857-3.071 6.857-6.857zM4.571 5.714h6.857V3.428H4.571v2.286zM2.286 9.143h27.429V4.572H14.929l-1.143 2.286h-11.5v2.286zM32 4.571v22.857a2.279 2.279 0 01-2.286 2.286H2.285a2.279 2.279 0 01-2.286-2.286V4.571a2.279 2.279 0 012.286-2.286h27.429A2.279 2.279 0 0132 4.571z"></path></svg></button>
+                <button style={{border:"1px solid #000"}}>
+                <svg width="1.5em" height="1.5em" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true" focusable="false" className="rs-icon" aria-label="camera retro" data-category="legacy"><path d="M16.571 14.857a.564.564 0 00-.571-.571 2.866 2.866 0 00-2.857 2.857c0 .321.25.571.571.571s.571-.25.571-.571c0-.946.768-1.714 1.714-1.714.321 0 .571-.25.571-.571zm4 2.322c0 2.518-2.054 4.571-4.571 4.571s-4.571-2.054-4.571-4.571 2.054-4.571 4.571-4.571 4.571 2.054 4.571 4.571zM2.286 27.429h27.429v-2.286H2.286v2.286zm20.571-10.25c0-3.786-3.071-6.857-6.857-6.857s-6.857 3.071-6.857 6.857 3.071 6.857 6.857 6.857 6.857-3.071 6.857-6.857zM4.571 5.714h6.857V3.428H4.571v2.286zM2.286 9.143h27.429V4.572H14.929l-1.143 2.286h-11.5v2.286zM32 4.571v22.857a2.279 2.279 0 01-2.286 2.286H2.285a2.279 2.279 0 01-2.286-2.286V4.571a2.279 2.279 0 012.286-2.286h27.429A2.279 2.279 0 0132 4.571z"></path></svg></button>
             </Uploader>
             </div>
             </div>

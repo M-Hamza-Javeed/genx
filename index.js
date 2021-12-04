@@ -11,6 +11,7 @@ var HTMLParser = require('node-html-parser');
 const { exec } = require('child_process');
 const { spawn } = require("child_process");
 var path = require('path');
+const fsextra = require('fs-extra')
 
 
 const app = express();
@@ -36,6 +37,19 @@ open({
 }).catch((err)=>{
     console.log("Database open error :",err)
 });
+
+
+
+var moveFile = (file, dir2)=>{
+    var f = path.basename(file);
+    var source = fs.createReadStream(file);
+    var dest = fs.createWriteStream(path.resolve(dir2, f));
+    source.pipe(dest);
+    source.on('end', function() { console.log('Succesfully copied'); });
+    source.on('error', function(err) { console.log(err); });
+};
+
+
 
 
 
@@ -122,6 +136,38 @@ app.get('/data', (req, res) => {
         res.send(data)
     });
 });
+
+const ReadFile=(folder,name)=>{
+    return new Promise((resolver,reject)=>{
+            fs.readFile(("./designs/"+folder+("/index."+name)),'utf8',(err,file)=>{
+                resolver({"filename":"index.html","path":"./designs/"+name+"/index.html",
+                "data":file,"img":("./designs/"+folder+("/"+folder+"."+name))})
+            })
+    })
+}
+
+
+
+app.get('/designs/:action',cors(corsOptions),async(req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    if(req.params.action=="getdesigns"){
+        let designsHtml=[]
+        fs.readdir("./designs",async(err,folder)=>{
+            for(var i=0;i<folder.length;i++){
+                let _e=null
+                await ReadFile(folder[i],"html").then((e)=>{_e=e;})
+                await fsextra.copy(("./designs/"+folder[i]+("/"+folder[i]+"."+"png")), ('./public/Designs/'+folder[i]+"."+"png"))
+                .then(() => {designsHtml.push({"Design":_e,"Image":('/Designs/'+folder[i]+"."+"png")})})
+                .catch(err => console.error(err))
+            }
+            res.json(JSON.stringify({"error":"Action Existed !","designs":designsHtml}))
+        });
+    }else{
+        res.send({"error":"Action Not Existed !"})
+    }
+});
+
+
 
 
 app.post('/scrape/page', (req, res) => {
@@ -510,6 +556,12 @@ app.post("/projects/project/html/:action",cors(corsOptions),async(req, res) => {
         else{
                 res.send({"message":"Files were not loaded yet!"})
         }
+    }
+    else if(req.params.action=="calcpages"){
+        fs.readdir('./html', function (err, files) {
+            console.log(files)
+        });
+        console.log("pages )|(")
     }
     else{ res.send("Files were not loaded yet") }
 });

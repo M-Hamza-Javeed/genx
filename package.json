@@ -16,6 +16,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-fileupload": "^1.2.1",
+    "fs-extra": "^10.0.0",
     "grapesjs": "^0.17.25",
     "grapesjs-preset-webpage": "^0.1.11",
     "grapesjs-react": "*",
