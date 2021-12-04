@@ -236,8 +236,14 @@ export default class Menu extends React.Component {
                     dbinfo:data
                 });
             });
-            this.GetDesigns()
+            this.GetDesigns("getdesigns")
         }
+
+        GetDesigns(action){
+            fetch((("http://localhost:8080/designs/"+action)), {method: 'GET',headers: Headers})
+                .then((response)=>response.json()).then((result)=>{localStorage.setItem("DesignTemplatesHTML",result)})
+        }
+
 
         GetDesignsiframe(){
             setTimeout((e)=>{
@@ -250,17 +256,17 @@ export default class Menu extends React.Component {
                     conn.setAttribute("style","display:flex;flex-direction:column;")
                     img.setAttribute("style","height:350px;width:290px;margin:20px;border:1px solid")
                     btn.setAttribute("style","height:40px;width:290px;margin:0px 20px")
+                    btn.setAttribute("id",files.Design.img.split("/")[2])
+                    btn.addEventListener("click", (e)=>{
+                    fetch((("http://localhost:8080/designs/"+("generate-"+e.target.id))), {method: 'GET',headers: Headers}).then((response)=>response.json()).then((result)=>{
+                        Alert.success("Design Generated :- "+e.target.id)
+                        console.log(result)})
+                    }); 
                     btn.textContent="Design";conn.append(img);conn.append(btn);DesignCardContainer.append(conn)
                 });
             },100)
         }
 
-
-
-        GetDesigns(){
-            fetch(("http://localhost:8080/designs/getdesigns"), {method: 'GET',headers: Headers})
-                .then((response)=>response.json()).then((result)=>{localStorage.setItem("DesignTemplatesHTML",result)})
-        }
 
 
 

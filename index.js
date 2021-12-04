@@ -147,6 +147,12 @@ const ReadFile=(folder,name)=>{
 }
 
 
+const generatedesignHtml=(folder)=>{
+    fs.readdir(("./designs/"+folder),async(err,files)=>{
+        console.log(files)
+    });
+}
+
 
 app.get('/designs/:action',cors(corsOptions),async(req, res) => {
     res.setHeader('Content-Type', 'application/json');
@@ -162,10 +168,20 @@ app.get('/designs/:action',cors(corsOptions),async(req, res) => {
             }
             res.json(JSON.stringify({"error":"Action Existed !","designs":designsHtml}))
         });
-    }else{
+    }
+    else if(req.params.action.match("generate-")){
+        let design=req.params.action.split("-")[1]
+        generatedesignHtml(design)
+        res.send({"Design":design})
+    }
+    else{
         res.send({"error":"Action Not Existed !"})
     }
 });
+
+
+
+
 
 
 
@@ -511,7 +527,6 @@ const saveHtmlfile=(files,c)=>{
 
     });
 }
-
 
 
 
