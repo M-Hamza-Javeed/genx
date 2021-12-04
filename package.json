@@ -9,7 +9,7 @@
     "@testing-library/user-event": "^12.8.3",
     "adm-zip": "^0.5.9",
     "appiconkit": "^2.1.0",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "body-parser": "^1.19.0",
     "ckeditor5-build-full": "^25.0.0",
     "concurrently": "^6.2.0",
