@@ -240,7 +240,7 @@ export default class Menu extends React.Component {
         }
 
         GetDesigns(action){
-            fetch((("http://localhost:8080/designs/"+action)), {method: 'GET',headers: Headers})
+            fetch((("http://localhost:8080/designs/"+action)), {method: 'POST'})
                 .then((response)=>response.json()).then((result)=>{localStorage.setItem("DesignTemplatesHTML",result)})
         }
 
@@ -258,7 +258,9 @@ export default class Menu extends React.Component {
                     btn.setAttribute("style","height:40px;width:290px;margin:0px 20px")
                     btn.setAttribute("id",files.Design.img.split("/")[2])
                     btn.addEventListener("click", (e)=>{
-                    fetch((("http://localhost:8080/designs/"+("generate-"+e.target.id))), {method: 'GET',headers: Headers}).then((response)=>response.json()).then((result)=>{
+                    let projectfilesobj = JSON.parse(localStorage.getItem("zipfiles"))
+                    fetch((("http://localhost:8080/designs/"+("generate-"+e.target.id))), {method: 'POST',headers:header,
+                    body:JSON.stringify({"file":projectfilesobj.dirname,"projectname":projectfilesobj.projectname,"projectfiles":projectfilesobj.file})}).then((response)=>response.json()).then((result)=>{
                         Alert.success("Design Generated :- "+e.target.id)
                         console.log(result)})
                     }); 

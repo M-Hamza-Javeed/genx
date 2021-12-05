@@ -146,15 +146,71 @@ const ReadFile=(folder,name)=>{
     })
 }
 
+function capitalizeWords(str) {
+    const arr = str.split(" ");
+    for (var i = 0; i < arr.length; i++) { arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1); }
+    const str2 = arr.join(" ");
+    return str2
+};
 
-const generatedesignHtml=(folder)=>{
-    fs.readdir(("./designs/"+folder),async(err,files)=>{
-        console.log(files)
+const htmlregularexpression=(regex,str,sub)=>{
+    return((str.replace(regex,sub)));
+}
+
+const blockSplit_regex=(str)=>{
+    const regex = /(?<=<!--Block Start-->).*(?=<!--Block End-->)/migs;
+    let genstr = (regex.exec(str));
+    if(genstr){ return (genstr[0]);}
+    else{ return ""; }
+}
+
+
+
+
+const generatedesignHtml=(folder,path,projectname,projectfiles)=>{
+
+    let _projectfiles = projectfiles.map((e)=>{
+        let filename = (e.split("/").splice(-1,1).join(".").split(".")[0]).replaceAll("-"," ")
+        if(e.split(".").splice(-1,1)=="html"){return ({"path":e.replace(path+"/","").replace(projectname+"/",""),"name":capitalizeWords(filename)}) }
+        else{return false}
+    })
+
+    fs.readFile(("./designs/"+folder+"/index.html"),"utf-8",async(err,file)=>{
+
+        let CodeBlock = blockSplit_regex(file);let topiccounter=0;
+        let GeneratedCodeBlock=_projectfiles.map((projectfile,key)=>{
+            if(projectfile){
+                if(projectfile.name.match("404")){
+                    console.log("404 File Existed")
+                }
+                else{
+                    topiccounter++;
+                    return (CodeBlock.replace("{{{SubHeading}}}",projectfile.name).replace("{{{Index}}}",topiccounter).replace("{{{Topic}}}",projectfile.name).replace("{{{TopicLink}}}",projectfile.path))
+                }
+            }
+        });
+
+        let fileStarting = file.split("<!--Block Start-->")
+        let fileEnding = file.split("<!--Block End-->")
+        let IndexFile_Html=(fileStarting[0]+GeneratedCodeBlock.join("")+fileEnding[1])
+
+
+
+        await fs.readdir((path+"/"+projectname),async(err,folders)=>{            
+            await fsextra.copy(("./designs/"+folder), (path+"/"+projectname), function (err) {
+                if (err) return console.error(err)
+                console.log("File Move ",("./designs/"+folder)," -->-> ",(path+"/"+projectname))
+                fs.writeFile((path+"/"+projectname+"/index.html"),IndexFile_Html,function(err, data) {
+                    console.log("Index File Generated !")
+                });
+            });
+        });
+
     });
 }
 
 
-app.get('/designs/:action',cors(corsOptions),async(req, res) => {
+app.post('/designs/:action',cors(corsOptions),async(req, res) => {
     res.setHeader('Content-Type', 'application/json');
     if(req.params.action=="getdesigns"){
         let designsHtml=[]
@@ -171,7 +227,7 @@ app.get('/designs/:action',cors(corsOptions),async(req, res) => {
     }
     else if(req.params.action.match("generate-")){
         let design=req.params.action.split("-")[1]
-        generatedesignHtml(design)
+        generatedesignHtml(design,req.body.file,req.body.projectname.split(".").slice(0,-1).join("."),req.body.projectfiles)
         res.send({"Design":design})
     }
     else{
