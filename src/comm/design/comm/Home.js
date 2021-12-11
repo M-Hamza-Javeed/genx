@@ -231,17 +231,20 @@ export default class Menu extends React.Component {
         }
 
         componentDidMount(){
-            Dbinforeq().then((data)=>{ 
-                this.setState({
-                    dbinfo:data
-                });
-            });
+            Dbinforeq().then((data)=>{ this.setState({dbinfo:data}); });
             this.GetDesigns("getdesigns")
         }
 
         GetDesigns(action){
             fetch((("http://localhost:8080/designs/"+action)), {method: 'POST'})
                 .then((response)=>response.json()).then((result)=>{localStorage.setItem("DesignTemplatesHTML",result)})
+            fetch((("http://localhost:8080/app/data/get")), {method: 'GET'})
+                .then((response)=>response.json()).then((result)=>{
+                    localStorage.setItem("projectname",result.projectname)
+                    localStorage.setItem("dirpath",result.dirpath)
+                    this.setState({Activeprojectname:result.projectname});
+                    this.setState({Activedir:result.dirpath});
+                })
         }
 
 
@@ -260,7 +263,7 @@ export default class Menu extends React.Component {
                     btn.addEventListener("click", (e)=>{
                     let projectfilesobj = JSON.parse(localStorage.getItem("zipfiles"))
                     fetch((("http://localhost:8080/designs/"+("generate-"+e.target.id))), {method: 'POST',headers:header,
-                    body:JSON.stringify({"file":projectfilesobj.dirname,"projectname":projectfilesobj.projectname,"projectfiles":projectfilesobj.file})}).then((response)=>response.json()).then((result)=>{
+                    body:JSON.stringify({"file":localStorage.getItem("dirpath"),"projectname":localStorage.getItem("projectname"),"projectfiles":projectfilesobj.file})}).then((response)=>response.json()).then((result)=>{
                         Alert.success("Design Generated :- "+e.target.id)
                         console.log(result)})
                     }); 
@@ -379,8 +382,8 @@ export default class Menu extends React.Component {
             <div style={{display:'flex',flexDirection:'row',justifyContent:'center'}}>
             <div style={MenuStyle}>
                 <div style={{padding:"5px 11px",display:"flex",justifyContent:"space-between","backgroundColor":"#000",color:"#fff",fontWeight:"bold"}}>
-                <span style={{width:"25%"}}>{this.state.Activeprojectname}</span>
-                <span style={{fontWeight:"lighter",width:"75%",textAlign:"end"}}>{this.state.Activedir}</span>
+                    <span style={{width:"25%"}}>{this.state.Activeprojectname}</span>
+                    <span style={{fontWeight:"lighter",width:"75%",textAlign:"end"}}>{this.state.Activedir}</span>
                 </div>
             
             <MenuComm appearance="subtle" active={active} onSelect={this.handleSelect} />            

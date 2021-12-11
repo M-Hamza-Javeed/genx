@@ -9,9 +9,16 @@ const fs = require('fs')
 var AdmZip = require("adm-zip");
 var HTMLParser = require('node-html-parser');
 const { exec } = require('child_process');
-const { spawn } = require("child_process");
 var path = require('path');
 const fsextra = require('fs-extra')
+var Appactivedata= require("./Data/app.json")
+
+
+
+
+
+
+
 
 
 const app = express();
@@ -130,6 +137,17 @@ app.get('/data/:title', cors(corsOptions) ,(req, res) => {
     });
 });
 
+app.get("/app/data/:action",cors(corsOptions),(req,res)=>{
+    if(req.params.action=="get"){
+        res.send(Appactivedata)
+    }else if(req.params.action=="insert"){
+        res.send(Appactivedata)
+    }
+    else{
+        res.send({"error":"action not exist"})
+    }
+})
+
 app.get('/data', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     getdata(req.params.title).then((data)=>{
@@ -169,6 +187,8 @@ const blockSplit_regex=(str)=>{
 
 const generatedesignHtml=(folder,path,projectname,projectfiles)=>{
 
+    
+
     let _projectfiles = projectfiles.map((e)=>{
         let filename = (e.split("/").splice(-1,1).join(".").split(".")[0]).replaceAll("-"," ")
         if(e.split(".").splice(-1,1)=="html"){return ({"path":e.replace(path+"/","").replace(projectname+"/",""),"name":capitalizeWords(filename)}) }
@@ -178,6 +198,7 @@ const generatedesignHtml=(folder,path,projectname,projectfiles)=>{
     fs.readFile(("./designs/"+folder+"/index.html"),"utf-8",async(err,file)=>{
 
         let CodeBlock = blockSplit_regex(file);let topiccounter=0;
+        console.log(_projectfiles,projectfiles)
         let GeneratedCodeBlock=_projectfiles.map((projectfile,key)=>{
             if(projectfile){
                 if(projectfile.name.match("404")){
@@ -222,13 +243,29 @@ app.post('/designs/:action',cors(corsOptions),async(req, res) => {
                 .then(() => {designsHtml.push({"Design":_e,"Image":('/Designs/'+folder[i]+"."+"png")})})
                 .catch(err => console.error(err))
             }
+            fs.readdir(Appactivedata.dirpath, function (err, files) {
+                if (err) { return console.log('Unable to scan directory: ' + err); } 
+                files.forEach(function (folders) {
+                    fs.readdir(Appactivedata.dirpath+"/"+folders, function (err, files) {
+                        files.forEach(function (file) { console.log(file); });
+                    });
+            });
+            });
             res.json(JSON.stringify({"error":"Action Existed !","designs":designsHtml}))
         });
+
     }
     else if(req.params.action.match("generate-")){
         let design=req.params.action.split("-")[1]
         generatedesignHtml(design,req.body.file,req.body.projectname.split(".").slice(0,-1).join("."),req.body.projectfiles)
+
+        fs.readdir(Appactivedata.dirpath, function (err, files) {
+            if (err) { return console.log('Unable to scan directory: ' + err); } 
+            files.forEach(function (file) { console.log(file); });
+        });
+
         res.send({"Design":design})
+
     }
     else{
         res.send({"error":"Action Not Existed !"})
@@ -548,10 +585,12 @@ app.post("/projects/upload",cors(corsOptions),async(req, res) => {
                             var zipEntries = zip.getEntries();
                             await zip.extractAllTo(extractdir,true)
                             await zipEntries.forEach((zipEntry)=>{
-                            if(fs.lstatSync(extractdir+"/"+zipEntry.entryName).isFile()){
-                                files.push(extractdir+"/"+zipEntry.entryName);
-                            }                            
-                            });
+                            if(fs.lstatSync(extractdir+"/"+zipEntry.entryName).isFile()){files.push(extractdir+"/"+zipEntry.entryName);}});
+
+                            Appactivedata.projectname=file.name;Appactivedata.dirpath=extractdir;
+                            
+                            fs.writeFile('./Data/app.json',JSON.stringify(Appactivedata), err => { if(err) throw err;console.log("New data added");});   
+
                             await res.send({"file":files,"dirname":extractdir,"projectname":file.name})
                             
                         } catch (err) {
@@ -612,9 +651,7 @@ app.post("/projects/project/html/:action",cors(corsOptions),async(req, res) => {
             if(name[name.length-1]=="html"){
                 fs.readFile(files[c],'utf8' , (err, data) => {
                     var root = HTMLParser.parse(data);
-                    console.log(req.body.removeclass)
                     let classnode = root.querySelector(req.body.removeclass.toString().trim());
-                    console.log(classnode)
                     if(classnode){
                         classnode.remove();
                         fs.writeFile(files[c],root.innerHTML,(e)=>{if(e){console.log("error during saving file!")}});
