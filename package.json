@@ -31,7 +31,7 @@
     "react-scripts": "4.0.3",
     "rsuite": "^4.10.2",
     "sqlite": "^4.0.23",
-    "sqlite3": "^5.0.2",
+    "sqlite3": "^5.0.3",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
